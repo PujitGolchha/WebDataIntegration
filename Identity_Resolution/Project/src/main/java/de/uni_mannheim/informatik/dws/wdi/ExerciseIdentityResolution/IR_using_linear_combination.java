@@ -53,22 +53,45 @@ public class IR_using_linear_combination
 		logger.info("*\tLoading gold standard\t*");
 		MatchingGoldStandard gsTest = new MatchingGoldStandard();
 		gsTest.loadFromCSVFile(new File(
-				"data/goldstandard/ground_truth_train.csv"));
+				"data/goldstandard/ground_truth_test.csv"));
 
 		// create a matching rule
-		LinearCombinationMatchingRule<Song, Attribute> matchingRule = new LinearCombinationMatchingRule<>(
-				0.2);
-		matchingRule.activateDebugReport("data/output/debugResultsMatchingRule.csv", 1000, gsTest);
+		LinearCombinationMatchingRule<Song, Attribute> matchingRule1 = new LinearCombinationMatchingRule<>(
+				0.5);
+		matchingRule1.activateDebugReport("data/output/debugResultsMatchingRule1.csv", 1000, gsTest);
 
 		// add comparators
-		//matchingRule.addComparator(new SongDateComparatorWeightedSimilarity(), 0.25);
-		//matchingRule.addComparator(new AlbumTitleComparatorContainment(), 0.5);
+		//matchingRule1.addComparator(new SongDateComparatorWeightedSimilarity(), 0.25);
+		matchingRule1.addComparator(new AlbumTitleComparatorContainment(), 0.3);
 		//matchingRule.addComparator(new SongArtistsComparatorGenJaccard(),0.25);
 //		matchingRule.addComparator(new SongArtistsComparatorGenMaxContainment());
-//		matchingRule.addComparator(new SongArtistsComparatorMaximumOfContainment());
-		matchingRule.addComparator(new SongTrackComparatorLevenshteinEditDistance(),1.0);
+    	matchingRule1.addComparator(new SongArtistsComparatorMaximumOfContainment(),0.3);
+		matchingRule1.addComparator(new SongTrackComparatorLevenshteinEditDistance(),0.3);
 		//matchingRule.addComparator(new AlbumTitleComparatorLevenshtein(), 0.5);
 
+		LinearCombinationMatchingRule<Song, Attribute> matchingRule2 = new LinearCombinationMatchingRule<>(
+				0.5);
+		matchingRule2.activateDebugReport("data/output/debugResultsMatchingRule2.csv", 1000, gsTest);
+
+		// add comparators
+		//matchingRule2.addComparator(new SongDateComparatorWeightedSimilarity(), 0.25);
+		matchingRule2.addComparator(new AlbumTitleComparatorContainment(), 0.3);
+		//matchingRule.addComparator(new SongArtistsComparatorGenJaccard(),0.25);
+//		matchingRule.addComparator(new SongArtistsComparatorGenMaxContainment());
+		matchingRule2.addComparator(new SongArtistsComparatorMaximumOfContainment(),0.3);
+		matchingRule2.addComparator(new SongTrackComparatorLevenshteinEditDistance(),0.3);
+
+		LinearCombinationMatchingRule<Song, Attribute> matchingRule3 = new LinearCombinationMatchingRule<>(
+				0.5);
+		matchingRule3.activateDebugReport("data/output/debugResultsMatchingRule3.csv", 1000, gsTest);
+
+		// add comparators
+		//matchingRule3.addComparator(new SongDateComparatorWeightedSimilarity(), 0.25);
+		matchingRule3.addComparator(new AlbumTitleComparatorContainment(), 0.3);
+		//matchingRule.addComparator(new SongArtistsComparatorGenJaccard(),0.25);
+//		matchingRule.addComparator(new SongArtistsComparatorGenMaxContainment());
+		matchingRule3.addComparator(new SongArtistsComparatorMaximumOfContainment(),0.3);
+		matchingRule3.addComparator(new SongTrackComparatorLevenshteinEditDistance(),0.3);
 
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Song, Attribute> blocker = new StandardRecordBlocker<Song, Attribute>(new SongBlockingKeyByTitleGenerator());
@@ -85,13 +108,13 @@ public class IR_using_linear_combination
 		// Execute the matching
 		logger.info("*\tRunning identity resolution\t*");
 		Processable<Correspondence<Song, Attribute>> correspondences1 = engine.runIdentityResolution(
-				dataDeezer, dataMusico, null, matchingRule,
+				dataDeezer, dataMusico, null, matchingRule1,
 				blocker);
 		Processable<Correspondence<Song, Attribute>> correspondences2 = engine.runIdentityResolution(
-				dataDeezer, dataSpotify, null, matchingRule,
+				dataDeezer, dataSpotify, null, matchingRule2,
 				blocker);
 		Processable<Correspondence<Song, Attribute>> correspondences3 = engine.runIdentityResolution(
-				dataSpotify, dataMusico, null, matchingRule,
+				dataSpotify, dataMusico, null, matchingRule3,
 				blocker);
 
 		// Create a top-1 global matching

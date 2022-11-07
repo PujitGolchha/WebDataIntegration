@@ -45,14 +45,14 @@ public class AlbumTitleComparatorContainment implements Comparator<Song, Attribu
 		
 		double similarity = sim.calculate(s1, s2);
 		
-//		if(this.comparisonLog != null){
-//			this.comparisonLog.setComparatorName(getClass().getName());
-//
-//			this.comparisonLog.setRecord1Value(s1);
-//			this.comparisonLog.setRecord2Value(s2);
-//
-//			this.comparisonLog.setSimilarity(Double.toString(similarity));
-//		}
+		if(this.comparisonLog != null){
+			this.comparisonLog.setComparatorName(getClass().getName());
+
+			this.comparisonLog.setRecord1PreprocessedValue(s1);
+			this.comparisonLog.setRecord2PreprocessedValue(s2);
+
+			this.comparisonLog.setSimilarity(Double.toString(similarity));
+		}
 		
 		return similarity;
 		

@@ -60,12 +60,12 @@ public class IR_using_machine_learning {
 		matchingRule.activateDebugReport("data/output/debugResultsMatchingRule.csv", 1000, gsTraining);
 		
 		// add comparators
-		matchingRule.addComparator(new SongArtistsComparatorGenJaccard());
-		matchingRule.addComparator(new SongArtistsComparatorGenMaxContainment());
+//		matchingRule.addComparator(new SongArtistsComparatorGenJaccard());
+//		matchingRule.addComparator(new SongArtistsComparatorGenMaxContainment());
 		matchingRule.addComparator(new SongArtistsComparatorMaximumOfContainment());
 		matchingRule.addComparator(new SongTrackComparatorLevenshteinEditDistance());
-		matchingRule.addComparator(new SongDateComparatorWeightedSimilarity());
-		matchingRule.addComparator(new AlbumTitleComparatorContainment());
+//		matchingRule.addComparator(new SongDateComparatorWeightedSimilarity());
+//		matchingRule.addComparator(new AlbumTitleComparatorContainment());
 		
 		
 		// train the matching rule's model

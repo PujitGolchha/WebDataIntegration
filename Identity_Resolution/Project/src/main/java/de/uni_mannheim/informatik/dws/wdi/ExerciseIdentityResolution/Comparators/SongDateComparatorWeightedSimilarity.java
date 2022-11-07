@@ -41,14 +41,14 @@ public class SongDateComparatorWeightedSimilarity implements Comparator<Song, At
     	
     	double similarity = sim.calculate(record1.getRelease_date(), record2.getRelease_date());
     	
-//		if(this.comparisonLog != null){
-//			this.comparisonLog.setComparatorName(getClass().getName());
-//
-//			this.comparisonLog.setRecord1Value(record1.getRelease_date().toString());
-//			this.comparisonLog.setRecord2Value(record2.getRelease_date().toString());
-//
-//			this.comparisonLog.setSimilarity(Double.toString(similarity));
-//		}
+		if(this.comparisonLog != null){
+			this.comparisonLog.setComparatorName(getClass().getName());
+
+			this.comparisonLog.setRecord1Value(record1.getRelease_date().toString());
+			this.comparisonLog.setRecord2Value(record2.getRelease_date().toString());
+
+			this.comparisonLog.setSimilarity(Double.toString(similarity));
+		}
 		return similarity;
 
 	}
