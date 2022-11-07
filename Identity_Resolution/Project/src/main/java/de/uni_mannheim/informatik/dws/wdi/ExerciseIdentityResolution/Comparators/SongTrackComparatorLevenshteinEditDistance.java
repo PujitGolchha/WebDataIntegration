@@ -53,7 +53,7 @@ public class SongTrackComparatorLevenshteinEditDistance implements Comparator<So
 		if(this.comparisonLog != null){
 			this.comparisonLog.setComparatorName(getClass().getName());
 			this.comparisonLog.setRecord1Value(s1);
-			this.comparisonLog.setRecord1Value(s2);
+			this.comparisonLog.setRecord2Value(s2);
 			this.comparisonLog.setSimilarity(Double.toString(similarity));
 		}
 		

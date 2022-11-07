@@ -60,12 +60,12 @@ public class IR_using_linear_combination
 				0.2);
 		matchingRule.activateDebugReport("data/output/debugResultsMatchingRule.csv", 1000, gsTest);
 
-		// add comparators
-		//matchingRule.addComparator(new SongDateComparatorWeightedSimilarity(), 0.25);
-		//matchingRule.addComparator(new AlbumTitleComparatorContainment(), 0.5);
-		//matchingRule.addComparator(new SongArtistsComparatorGenJaccard(),0.25);
-//		matchingRule.addComparator(new SongArtistsComparatorGenMaxContainment());
-//		matchingRule.addComparator(new SongArtistsComparatorMaximumOfContainment());
+//		 add comparators
+		matchingRule.addComparator(new SongDateComparatorWeightedSimilarity(), 0.25);
+		matchingRule.addComparator(new AlbumTitleComparatorContainment(), 0.5);
+		matchingRule.addComparator(new SongArtistsComparatorGenJaccard(),0.25);
+		matchingRule.addComparator(new SongArtistsComparatorGenMaxContainment(),0.2);
+		matchingRule.addComparator(new SongArtistsComparatorMaximumOfContainment(), 0.1);
 		matchingRule.addComparator(new SongTrackComparatorLevenshteinEditDistance(),1.0);
 		//matchingRule.addComparator(new AlbumTitleComparatorLevenshtein(), 0.5);
 

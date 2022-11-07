@@ -56,16 +56,16 @@ public class SongArtistsComparatorMaximumOfContainment implements Comparator<Son
 
 		double similarity = sim.calculate(new_s1, new_s2);
 		
-//		if(this.comparisonLog != null){
-//			this.comparisonLog.setComparatorName(getClass().getName());
-//			for(int i = 0; i < new_s1.size(); i++) {
-//				this.comparisonLog.setRecord1Value(s1[i]);
-//			}
-//			for(int i = 0; i < new_s2.size(); i++) {
-//				this.comparisonLog.setRecord1Value(s2[i]);
-//			}
-//			this.comparisonLog.setSimilarity(Double.toString(similarity));
-//		}
+		if(this.comparisonLog != null){
+			this.comparisonLog.setComparatorName(getClass().getName());
+			for(int i = 0; i < new_s1.size(); i++) {
+				this.comparisonLog.setRecord1Value(s1[i]);
+			}
+			for(int i = 0; i < new_s2.size(); i++) {
+				this.comparisonLog.setRecord2Value(s2[i]);
+			}
+			this.comparisonLog.setSimilarity(Double.toString(similarity));
+		}
 		
 		return similarity;
 		
