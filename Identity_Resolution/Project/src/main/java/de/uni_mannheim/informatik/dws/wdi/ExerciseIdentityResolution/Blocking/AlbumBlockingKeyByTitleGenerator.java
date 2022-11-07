@@ -43,13 +43,9 @@ public class AlbumBlockingKeyByTitleGenerator extends
 	public void generateBlockingKeys(Song record, Processable<Correspondence<Attribute, Matchable>> correspondences,
 			DataIterator<Pair<String, Song>> resultCollector) {
 
-		String[] tokens  = record.getAlbum_name().split(" ");
+		String[] tokens  = record.getAlbum_name().toUpperCase().split(" ");
 
-		String blockingKeyValue = "";
-
-		for(int i = 0; i <= 2 && i < tokens.length; i++) {
-			blockingKeyValue += tokens[i].substring(0, Math.min(2,tokens[i].length())).toUpperCase();
-		}
+		String blockingKeyValue = tokens[0].substring(0, Math.min(2,tokens[0].length()));;
 
 		resultCollector.next(new Pair<>(blockingKeyValue, record));
 	}
