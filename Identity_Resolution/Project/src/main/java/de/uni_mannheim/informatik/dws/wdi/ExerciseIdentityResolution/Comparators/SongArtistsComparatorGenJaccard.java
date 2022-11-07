@@ -1,0 +1,79 @@
+/*
+ * Copyright (c) 2017 Data and Web Science Group, University of Mannheim, Germany (http://dws.informatik.uni-mannheim.de/)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and limitations under the License.
+ */
+package de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.Comparators;
+
+import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model.Movie;
+import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model.Song;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
+import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
+import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
+import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
+import de.uni_mannheim.informatik.dws.winter.similarity.list.GeneralisedJaccard;
+import de.uni_mannheim.informatik.dws.winter.similarity.list.GeneralisedMaximumOfContainment;
+import de.uni_mannheim.informatik.dws.winter.similarity.string.LevenshteinSimilarity;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class SongArtistsComparatorGenJaccard implements Comparator<Song, Attribute> {
+
+	private static final long serialVersionUID = 1L;
+	private LevenshteinSimilarity lev_sim = new LevenshteinSimilarity();
+	//todo check what is the similarity threshold
+	private GeneralisedJaccard sim = new GeneralisedJaccard(lev_sim, 0.5);
+	private ComparatorLogger comparisonLog;
+
+	@Override
+	public double compare(
+			Song record1,
+			Song record2,
+			Correspondence<Attribute, Matchable> schemaCorrespondences) {
+		
+		String[] s1 = record1.getArtists();
+		String[] s2 = record2.getArtists();
+
+		List<String> new_s1 = Arrays.asList(s1);
+		List<String> new_s2 = Arrays.asList(s2);
+
+		new_s1 = new_s1.stream().map(x -> x.toLowerCase().replaceAll("\\p{Punct}","")).collect(Collectors.toList());
+		new_s2 = new_s2.stream().map(x -> x.toLowerCase().replaceAll("\\p{Punct}","")).collect(Collectors.toList());
+
+		double similarity = sim.calculate(new_s1, new_s2);
+		
+//		if(this.comparisonLog != null){
+//			this.comparisonLog.setComparatorName(getClass().getName());
+//			for(int i = 0; i<=new_s1.size(); i++) {
+//				this.comparisonLog.setRecord1Value(s1[i]);
+//			}
+//			for(int i = 0; i<=new_s2.size(); i++) {
+//				this.comparisonLog.setRecord1Value(s2[i]);
+//			}
+//			this.comparisonLog.setSimilarity(Double.toString(similarity));
+//		}
+		
+		return similarity;
+		
+	}
+
+	@Override
+	public ComparatorLogger getComparisonLog() {
+		return this.comparisonLog;
+	}
+
+	@Override
+	public void setComparisonLog(ComparatorLogger comparatorLog) {
+		this.comparisonLog = comparatorLog;
+	}
+
+}
