@@ -56,47 +56,64 @@ public class IR_using_machine_learning {
 		// create a matching rule
 		String options[] = new String[] { "-S" };
 		String modelType = "SimpleLogistic"; // use a logistic regression
-		WekaMatchingRule<Song, Attribute> matchingRule = new WekaMatchingRule<>(0.7, modelType, options);
-		matchingRule.activateDebugReport("data/output/debugResultsMatchingRule.csv", 1000, gsTraining);
+		WekaMatchingRule<Song, Attribute> matchingRule1 = new WekaMatchingRule<>(0.5, modelType, options);
+		matchingRule1.activateDebugReport("data/output/debugResultsMatchingRule1.csv", 1000, gsTraining);
 		
 		// add comparators
-//		matchingRule.addComparator(new SongArtistsComparatorGenJaccard());
-//		matchingRule.addComparator(new SongArtistsComparatorGenMaxContainment());
-		matchingRule.addComparator(new SongArtistsComparatorMaximumOfContainment());
-		matchingRule.addComparator(new SongTrackComparatorLevenshteinEditDistance());
-//		matchingRule.addComparator(new SongDateComparatorWeightedSimilarity());
-//		matchingRule.addComparator(new AlbumTitleComparatorContainment());
-		
-		
+		matchingRule1.addComparator(new SongArtistsComparatorMaximumOfContainment());
+		matchingRule1.addComparator(new SongTrackComparatorLevenshteinEditDistance());
+		matchingRule1.addComparator(new SongDateComparator2Years());
+		matchingRule1.addComparator(new AlbumTitleComparatorContainment());
+
+		WekaMatchingRule<Song, Attribute> matchingRule2 = new WekaMatchingRule<>(0.5, modelType, options);
+		matchingRule2.activateDebugReport("data/output/debugResultsMatchingRule2.csv", 1000, gsTraining);
+
+		// add comparators
+		matchingRule2.addComparator(new SongArtistsComparatorMaximumOfContainment());
+		matchingRule2.addComparator(new SongTrackComparatorLevenshteinEditDistance());
+		matchingRule2.addComparator(new SongDateComparator2Years());
+		matchingRule2.addComparator(new AlbumTitleComparatorContainment());
+
+		WekaMatchingRule<Song, Attribute> matchingRule3 = new WekaMatchingRule<>(0.5, modelType, options);
+		matchingRule3.activateDebugReport("data/output/debugResultsMatchingRule3.csv", 1000, gsTraining);
+
+		// add comparators
+		matchingRule3.addComparator(new SongArtistsComparatorMaximumOfContainment());
+		matchingRule3.addComparator(new SongTrackComparatorLevenshteinEditDistance());
+		matchingRule3.addComparator(new SongDateComparator2Years());
+		matchingRule3.addComparator(new AlbumTitleComparatorContainment());
 		// train the matching rule's model
 		logger.info("*\tLearning matching rule\t*");
 		RuleLearner<Song, Attribute> learner = new RuleLearner<>();
-		learner.learnMatchingRule(dataDeezer, dataMusico,null, matchingRule, gsTraining);
-		learner.learnMatchingRule(dataDeezer, dataSpotify,null, matchingRule, gsTraining);
-		learner.learnMatchingRule(dataSpotify, dataMusico,null, matchingRule, gsTraining);
+		learner.learnMatchingRule(dataDeezer, dataMusico,null, matchingRule1, gsTraining);
+		learner.learnMatchingRule(dataDeezer, dataSpotify,null, matchingRule2, gsTraining);
+		learner.learnMatchingRule(dataSpotify, dataMusico,null, matchingRule3, gsTraining);
 
-		logger.info(String.format("Matching rule is:\n%s", matchingRule.getModelDescription()));
+		logger.info(String.format("Matching rule is:\n%s", matchingRule1.getModelDescription()));
 		
 		// create a blocker (blocking strategy)
-		StandardRecordBlocker<Song, Attribute> blocker = new StandardRecordBlocker<Song, Attribute>(new SongBlockingKeyByTitleGenerator());
-//		StandardRecordBlocker<Song, Attribute> blocker = new StandardRecordBlocker<Song, Attribute>(new SongBlockingKeyByYearGenerator());
-//		SortedNeighbourhoodBlocker<Movie, Attribute, Attribute> blocker = new SortedNeighbourhoodBlocker<>(new MovieBlockingKeyByDecadeGenerator(), 1);
-		blocker.collectBlockSizeData("data/output/debugResultsBlocking.csv", 100);
-		
+		StandardRecordBlocker<Song, Attribute> blocker1 = new StandardRecordBlocker<Song, Attribute>(new SongBlockingKeyByTitleGenerator());
+		blocker1.collectBlockSizeData("data/output/debugResultsBlocking1.csv", 100);
+
+		StandardRecordBlocker<Song, Attribute> blocker2 = new StandardRecordBlocker<Song, Attribute>(new SongBlockingKeyByTitleGenerator());
+		blocker2.collectBlockSizeData("data/output/debugResultsBlocking2.csv", 100);
+
+		StandardRecordBlocker<Song, Attribute> blocker3 = new StandardRecordBlocker<Song, Attribute>(new SongBlockingKeyByTitleGenerator());
+		blocker3.collectBlockSizeData("data/output/debugResultsBlocking3.csv", 100);
 		// Initialize Matching Engine
 		MatchingEngine<Song, Attribute> engine = new MatchingEngine<>();
 
 		// Execute the matching
 		logger.info("*\tRunning identity resolution\t*");
 		Processable<Correspondence<Song, Attribute>> correspondences1 = engine.runIdentityResolution(
-				dataDeezer, dataMusico, null, matchingRule,
-				blocker);
+				dataDeezer, dataMusico, null, matchingRule1,
+				blocker1);
 		Processable<Correspondence<Song, Attribute>> correspondences2 = engine.runIdentityResolution(
-				dataDeezer, dataSpotify, null, matchingRule,
-				blocker);
+				dataDeezer, dataSpotify, null, matchingRule2,
+				blocker2);
 		Processable<Correspondence<Song, Attribute>> correspondences3 = engine.runIdentityResolution(
-				dataSpotify, dataMusico, null, matchingRule,
-				blocker);
+				dataSpotify, dataMusico, null, matchingRule3,
+				blocker3);
 
 		// write the correspondences to the output file
 		new CSVCorrespondenceFormatter().writeCSV(new File("data/output/songs_correspondences_dez_musico.csv"), correspondences1);
@@ -122,26 +139,25 @@ public class IR_using_machine_learning {
 		// print the evaluation result
 		logger.info("Deezer <-> Musico");
 		logger.info(String.format(
-				"Precision: %.4f",perfTest1.getPrecision()));
+				"Precision, Recall, F1 "));
 		logger.info(String.format(
-				"Recall: %.4f",	perfTest1.getRecall()));
-		logger.info(String.format(
-				"F1: %.4f",perfTest1.getF1()));
+				"%.4f %.4f %.4f",perfTest1.getPrecision(),perfTest1.getRecall(),perfTest1.getF1()));
+		logger.info("\n");
 
-		logger.info("Deezer <-> Spotify");
+
+		logger.info("Spotify <-> Deezer");
 		logger.info(String.format(
-				"Precision: %.4f",perfTest2.getPrecision()));
+				"Precision, Recall, F1 "));
 		logger.info(String.format(
-				"Recall: %.4f",	perfTest2.getRecall()));
-		logger.info(String.format(
-				"F1: %.4f",perfTest2.getF1()));
+				"%.4f %.4f %.4f",perfTest2.getPrecision(),perfTest2.getRecall(),perfTest2.getF1()));
+
+
+		logger.info("\n");
 
 		logger.info("Spotify <-> Musico");
 		logger.info(String.format(
-				"Precision: %.4f",perfTest3.getPrecision()));
+				"Precision, Recall, F1 "));
 		logger.info(String.format(
-				"Recall: %.4f",	perfTest3.getRecall()));
-		logger.info(String.format(
-				"F1: %.4f",perfTest3.getF1()));
+				"%.4f %.4f %.4f",perfTest3.getPrecision(),perfTest3.getRecall(),perfTest3.getF1()));
     }
 }
