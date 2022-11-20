@@ -13,9 +13,14 @@ package de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.model.AbstractRecord;
-import de.uni_mannheim.informatik.dws.winter.model.Matchable;
+import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * A {@link AbstractRecord} representing a movie.
@@ -23,7 +28,7 @@ import de.uni_mannheim.informatik.dws.winter.model.Matchable;
  * @author Oliver Lehmberg (oli@dwslab.de)
  *
  */
-public class Song implements Matchable {
+public class Song extends AbstractRecord<Attribute> implements Serializable {
 
     /*
      * example entry <movie> <id>academy_awards_2</id> <title>True Grit</title>
@@ -33,7 +38,7 @@ public class Song implements Matchable {
      */
 
     protected String id;
-    protected String provenance;
+//    protected String provenance;
     private String track_name;
     private LocalDateTime release_date;
     private String album_name;
@@ -45,9 +50,13 @@ public class Song implements Matchable {
     private float tempo;
     private int duration;
 
+    private Map<Attribute, Collection<String>> provenance = new HashMap<>();
+    private Collection<String> recordProvenance;
+
     public Song(String identifier, String provenance) {
+        super(identifier, provenance);
         id = identifier;
-        this.provenance = provenance;
+
     }
 
     @Override
@@ -55,10 +64,6 @@ public class Song implements Matchable {
         return id;
     }
 
-    @Override
-    public String getProvenance() {
-        return provenance;
-    }
 
     public String getTrack_name() {
         return track_name;
@@ -137,14 +142,77 @@ public class Song implements Matchable {
     }
 
     public void setDuration(int duration) {
-        this.duration = duration;
+        if (Integer.toString(duration).length()>=6)
+        {
+            this.duration = duration / 1000;
+        }
+        else
+        {
+            this.duration = duration;
+        }
     }
 
+    public Collection<String> getRecordProvenance() {
+        return recordProvenance;
+    }
+
+    public void setRecordProvenance(Collection<String> provenance) {
+        recordProvenance = provenance;
+    }
+
+    public void setAttributeProvenance(Attribute attribute,
+                                       Collection<String> provenance) {
+        this.provenance.put(attribute, provenance);
+    }
+
+
+    public Collection<String> getAttributeProvenance(String attribute) {
+        return provenance.get(attribute);}
+
+    public String getMergedAttributeProvenance(Attribute attribute) {
+        Collection<String> prov = provenance.get(attribute);
+
+        if (prov != null) {
+            return StringUtils.join(prov, "+");
+        } else {
+            return "";
+        }
+    }
     ///
+    public static final Attribute Track_Name = new Attribute("Track_Name");
+    public static final Attribute Album_Name = new Attribute("Album_Name");
+    public static final Attribute Release_Date = new Attribute("Release_Date ");
+    public static final Attribute Duration= new Attribute("Duration");
+
+    public static final Attribute Artists= new Attribute("Artists");
+
+    public static final Attribute Tempo= new Attribute("Tempo");
+
+    public static final Attribute Album_Genres= new Attribute("Album_Genres");
+
+    @Override
+    public boolean hasValue(Attribute attribute) {
+        if(attribute==Track_Name)
+            return getTrack_name() != null && !getTrack_name().isEmpty();
+        else if(attribute==Album_Name)
+            return getAlbum_name() != null && !getAlbum_name().isEmpty();
+        else if(attribute==Release_Date)
+            return getRelease_date() != null;
+        else if(attribute==Duration)
+            return getDuration() != 0;
+        else if(attribute==Artists)
+            return getArtists() != null;
+        else if(attribute==Tempo)
+            return getTempo() != 0;
+        else if(attribute==Album_Genres)
+            return getAlbum_genres() != null;
+        else
+            return false;
+    }
 
     @Override
     public String toString() {
-        return String.format("[Movie %s: %s / %s / %s / %s]", getIdentifier(), getTrack_name(),
+        return String.format("[Song %s: %s / %s / %s / %s]", getIdentifier(), getTrack_name(),
                 getAlbum_name(), Arrays.toString(getArtists()), getRelease_date().toString());
     }
 
