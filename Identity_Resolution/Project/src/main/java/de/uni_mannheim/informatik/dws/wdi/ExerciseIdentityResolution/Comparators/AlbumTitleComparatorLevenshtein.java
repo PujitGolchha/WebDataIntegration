@@ -11,7 +11,7 @@
  */
 package de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.Comparators;
 
-import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model.Movie;
+
 import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model.Song;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
@@ -49,8 +49,8 @@ public class AlbumTitleComparatorLevenshtein implements Comparator<Song, Attribu
 		if(this.comparisonLog != null){
 			this.comparisonLog.setComparatorName(getClass().getName());
 		
-			this.comparisonLog.setRecord1Value(s1);
-			this.comparisonLog.setRecord2Value(s2);
+			this.comparisonLog.setRecord1PreprocessedValue(s1);
+			this.comparisonLog.setRecord2PreprocessedValue(s2);
     	
 			this.comparisonLog.setSimilarity(Double.toString(similarity));
 		}

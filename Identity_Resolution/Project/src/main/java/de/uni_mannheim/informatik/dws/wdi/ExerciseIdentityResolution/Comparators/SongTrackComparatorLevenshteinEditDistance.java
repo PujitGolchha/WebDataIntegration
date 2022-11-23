@@ -11,7 +11,6 @@
  */
 package de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.Comparators;
 
-import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model.Movie;
 import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model.Song;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
@@ -27,10 +26,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * {@link Comparator} for {@link Movie}s based on the {@link Movie#getTitle()}
+ * {@link Comparator} for {@link Song}s based on the {@link Song#getTrack_name()} ()}
  * value and their {@link} value.
  * 
- * @author Oliver Lehmberg (oli@dwslab.de)
+ * @author Sharan, Aakriti
  * 
  */
 public class SongTrackComparatorLevenshteinEditDistance implements Comparator<Song, Attribute> {
@@ -47,17 +46,25 @@ public class SongTrackComparatorLevenshteinEditDistance implements Comparator<So
 		
 		String s1 = record1.getTrack_name();
 		String s2 = record2.getTrack_name();
+		String s3 = record1.getTrack_name().toLowerCase().replaceAll("\\p{Punct}","");
+		String s4 = record2.getTrack_name().toLowerCase().replaceAll("\\p{Punct}","");
 
+		//System.out.println(s1);
+		//System.out.println(s2);
 		double similarity = sim.calculate(s1, s2);
+		double similarity2 = sim.calculate(s3, s4);
 		
 		if(this.comparisonLog != null){
 			this.comparisonLog.setComparatorName(getClass().getName());
 			this.comparisonLog.setRecord1Value(s1);
+			this.comparisonLog.setRecord1PreprocessedValue(s3);
 			this.comparisonLog.setRecord2Value(s2);
+			this.comparisonLog.setRecord2PreprocessedValue(s4);
 			this.comparisonLog.setSimilarity(Double.toString(similarity));
+			this.comparisonLog.setPostprocessedSimilarity(Double.toString(similarity2));
 		}
 		
-		return similarity;
+		return similarity2;
 		
 	}
 

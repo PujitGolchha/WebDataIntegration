@@ -12,8 +12,11 @@
 package de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model;
 
 import de.uni_mannheim.informatik.dws.winter.model.DataSet;
+import de.uni_mannheim.informatik.dws.winter.model.FusibleFactory;
+import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.model.io.XMLMatchableReader;
+import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -22,6 +25,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -30,7 +36,7 @@ import java.util.Locale;
  * @author Oliver Lehmberg (oli@dwslab.de)
  * 
  */
-public class SongXMLReader extends XMLMatchableReader<Song, Attribute>  {
+public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implements FusibleFactory<Song, Attribute> {
 
 	/* (non-Javadoc)
 	 * @see de.uni_mannheim.informatik.wdi.model.io.XMLMatchableReader#initialiseDataset(de.uni_mannheim.informatik.wdi.model.DataSet)
@@ -134,6 +140,20 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute>  {
 //		movie.setActors(actors);
 
 		return song;
+	}
+	public Song createInstanceForFusion(RecordGroup<Song, Attribute> cluster) {
+
+		List<String> ids = new LinkedList<>();
+
+		for (Song m : cluster.getRecords()) {
+			ids.add(m.getIdentifier());
+		}
+
+		Collections.sort(ids);
+
+		String mergedId = StringUtils.join(ids, '+');
+
+		return new Song(mergedId, "fused");
 	}
 
 }

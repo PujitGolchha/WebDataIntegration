@@ -11,7 +11,6 @@
  */
 package de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.Comparators;
 
-import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model.Movie;
 import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model.Song;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
@@ -53,10 +52,10 @@ public class SongArtistsComparatorGenJaccard implements Comparator<Song, Attribu
 		
 		if(this.comparisonLog != null){
 			this.comparisonLog.setComparatorName(getClass().getName());
-			for(int i = 0; i< new_s1.size(); i++) {
+			for(int i = 0; i<=new_s1.size(); i++) {
 				this.comparisonLog.setRecord1Value(s1[i]);
 			}
-			for(int i = 0; i< new_s2.size(); i++) {
+			for(int i = 0; i<=new_s2.size(); i++) {
 				this.comparisonLog.setRecord2Value(s2[i]);
 			}
 			this.comparisonLog.setSimilarity(Double.toString(similarity));

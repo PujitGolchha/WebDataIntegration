@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Songs>
+  <song>
+    <id>spotify_37844</id>
+    <track_name>If we Ever meet Again</track_name>
+    <release_date>2009-12-22</release_date>
+    <artists>['Timbaland', 'Katy Perry']</artists>
+    <album>
+      <name>Shock Value II</name>
+      <genres>['Pop']</genres>
+    </album>
+    <duration>292</duration>
+    <Tempo>126</Tempo>
+  </song>
+  <song>
+    <id>spotify_3814</id>
+    <track_name>She hates me</track_name>
+    <release_date>2001-08-28</release_date>
+    <artists>['Puddle Of Mudd']</artists>
+    <album>
+      <name>Come Clean</name>
+      <genres>['Alternative Metal']</genres>
+    </album>
+    <duration>216</duration>
+    <Tempo>110</Tempo>
+  </song>
+  <song>
+    <id>spotify_18835</id>
+    <track_name>Ready or Not</track_name>
+    <release_date>1996-02-13</release_date>
+    <artists>['Fugees', 'Ms. Lauryn Hill', 'Wyclef Jean', 'Pras']</artists>
+    <album>
+      <name>The Score</name>
+      <genres>['Pop']</genres>
+    </album>
+    <duration>227</duration>
+    <Tempo>130</Tempo>
+  </song>
+  <song>
+    <id>spotify_12863</id>
+    <track_name>Who Knew</track_name>
+    <release_date>2006-04-04</release_date>
+    <artists>['P!nk']</artists>
+    <album>
+      <name>I'm Not Dead</name>
+      <genres>['Pop']</genres>
+    </album>
+    <duration>208</duration>
+    <Tempo>140</Tempo>
+  </song>
+  <song>
+    <id>spotify_41374</id>
+    <track_name>Candy Everybody Wants</track_name>
+    <release_date>1992-01-01</release_date>
+    <artists>['10,000 Maniacs']</artists>
+    <album>
+      <name>Our Time In Eden</name>
+      <genres>['Rock']</genres>
+    </album>
+    <duration>185</duration>
+    <Tempo>105</Tempo>
+  </song>
+  <song>
+    <id>spotify_20403</id>
+    <track_name>Harder to Breathe</track_name>
+    <release_date>2002-06-25</release_date>
+    <artists>['Maroon 5']</artists>
+    <album>
+      <name>Songs About Jane</name>
+      <genres>['Pop']</genres>
+    </album>
+    <duration>173</duration>
+    <Tempo>150</Tempo>
+  </song>
+  <song>
+    <id>spotify_41502</id>
+    <track_name>That's All</track_name>
+    <release_date>2004-11-29</release_date>
+    <artists>['Genesis']</artists>
+    <album>
+      <name>The Platinum Collection</name>
+      <genres>['Rock']</genres>
+    </album>
+    <duration>265</duration>
+    <Tempo>175</Tempo>
+  </song>
+  <song>
+    <id>spotify_2217</id>
+    <track_name>The Hand That Feeds</track_name>
+    <release_date>2005-05-02</release_date>
+    <artists>['Nine Inch Nails']</artists>
+    <album>
+      <name>With Teeth</name>
+      <genres>['Rock']</genres>
+    </album>
+    <duration>211</duration>
+    <Tempo>128</Tempo>
+  </song>
+  <song>
+    <id>deezer_16203</id>
+    <track_name>Empty Walls</track_name>
+    <release_date>2007-10-16</release_date>
+    <artists>['Serj Tankian']</artists>
+    <album>
+      <name>Elect the Dead</name>
+      <genres>['Rock']</genres>
+    </album>
+    <duration>230</duration>
+    <Tempo>160</Tempo>
+  </song>
+  <song>
+    <id>spotify_12415</id>
+    <track_name>They Don't Know About Us</track_name>
+    <release_date>2012-11-12</release_date>
+    <artists>['One Direction']</artists>
+    <album>
+      <name>Take Me Home</name>
+      <genres>['Pop', 'International Pop', 'Rock']</genres>
+    </album>
+    <duration>201</duration>
+    <Tempo>148</Tempo>
+  </song>
+  <song>
+    <id>deezer_987</id>
+    <track_name>Englishman in New York</track_name>
+    <release_date>1987-10-05</release_date>
+    <artists>['Sting']</artists>
+    <album>
+      <name>...Nothing Like the Sun</name>
+      <genres>['Pop', 'Rock']</genres>
+    </album>
+    <duration>266</duration>
+    <Tempo>102</Tempo>
+  </song>
+  <song>
+    <id>spotify_11522</id>
+    <track_name>Firework</track_name>
+    <release_date>2010-10-26</release_date>
+    <artists>['Katy Perry']</artists>
+    <album>
+      <name>Teenage Dream: The Complete Confection</name>
+      <genres>[]</genres>
+    </album>
+    <duration>227</duration>
+    <Tempo>124</Tempo>
+  </song>
+  <song>
+    <id>spotify_623</id>
+    <track_name>Just Dance</track_name>
+    <release_date>2008-04-08</release_date>
+    <artists>['Lady Gaga', "Colby O'Donis"]</artists>
+    <album>
+      <name>The Fame</name>
+      <genres>['Pop']</genres>
+    </album>
+    <duration>241</duration>
+    <Tempo>119</Tempo>
+  </song>
+  <song>
+    <id>deezer_13948</id>
+    <track_name>Hell on the Heart </track_name>
+    <release_date>2009-10-12</release_date>
+    <artists>['Eric Church']</artists>
+    <album>
+      <name>Carolina</name>
+      <genres>['Country']</genres>
+    </album>
+    <duration>164</duration>
+    <Tempo>123</Tempo>
+  </song>
+  <song>
+    <id>spotify_13809</id>
+    <track_name>Sweet Child O' Mine</track_name>
+    <release_date>1987-07-21</release_date>
+    <artists>['Guns N' Roses']</artists>
+    <album>
+      <name>Appetite For Destruction</name>
+      <genres>['Glam Metal']</genres>
+    </album>
+    <duration>356</duration>
+    <Tempo>125</Tempo>
+  </song>
+  <song>
+    <id>spotify_11427</id>
+    <track_name>Disco Inferno</track_name>
+    <release_date>2009-01-01</release_date>
+    <artists>['The Trammps']</artists>
+    <album>
+      <name>The Trammps</name>
+      <genres>['Disco']</genres>
+    </album>
+    <duration>654</duration>
+    <Tempo>129</Tempo>
+  </song>
+</Songs>

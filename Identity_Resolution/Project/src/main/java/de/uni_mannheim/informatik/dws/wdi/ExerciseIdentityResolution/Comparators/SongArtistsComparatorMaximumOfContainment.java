@@ -11,7 +11,6 @@
  */
 package de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.Comparators;
 
-import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model.Movie;
 import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model.Song;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.Comparator;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.comparators.ComparatorLogger;
@@ -27,10 +26,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * {@link Comparator} for {@link Movie}s based on the {@link Movie#getTitle()}
+ * {@link Comparator} for {@link Song}s based on the {@link Song#getArtists()}
  * value and their {@link} value.
  * 
- * @author Oliver Lehmberg (oli@dwslab.de)
+ * @author Pujit Golchha, Anirudh Yadav
  * 
  */
 public class SongArtistsComparatorMaximumOfContainment implements Comparator<Song, Attribute> {
