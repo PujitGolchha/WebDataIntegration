@@ -21,6 +21,7 @@ import java.util.Map;
 import de.uni_mannheim.informatik.dws.winter.model.AbstractRecord;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import org.apache.commons.lang3.StringUtils;
+import weka.core.pmml.jaxbbindings.False;
 
 /**
  * A {@link AbstractRecord} representing a movie.
@@ -121,7 +122,7 @@ public class Song extends AbstractRecord<Attribute> implements Serializable {
         this.popularity = popularity;
     }
 
-    public boolean isExplicit() {
+    public boolean getExplicit() {
         return explicit;
     }
 
@@ -187,8 +188,12 @@ public class Song extends AbstractRecord<Attribute> implements Serializable {
     public static final Attribute Artists= new Attribute("Artists");
 
     public static final Attribute Tempo= new Attribute("Tempo");
+//    public static final Attribute Popularity= new Attribute("Popularity");
+//    public static final Attribute Explicit= new Attribute("Explicit");
+
 
     public static final Attribute Album_Genres= new Attribute("Album_Genres");
+//    public static final Attribute Album_Type= new Attribute("Album_Type");
 
     @Override
     public boolean hasValue(Attribute attribute) {
@@ -204,8 +209,14 @@ public class Song extends AbstractRecord<Attribute> implements Serializable {
             return getArtists() != null;
         else if(attribute==Tempo)
             return getTempo() != 0;
+//        else if(attribute==Popularity)
+//            return getPopularity() != 0;
         else if(attribute==Album_Genres)
             return getAlbum_genres() != null;
+//        else if(attribute==Album_Type)
+//            return getAlbum_type() != null;
+//        else if(attribute==Explicit)
+//            return !getExplicit();
         else
             return false;
     }
