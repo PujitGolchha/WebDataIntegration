@@ -44,7 +44,20 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 	@Override
 	protected void initialiseDataset(DataSet<Song, Attribute> dataset) {
 		super.initialiseDataset(dataset);
-		
+
+		// the schema is defined in the Song class and not interpreted from the file, so we have to set the attributes manually
+		dataset.addAttribute(Song.Track_Name);
+		dataset.addAttribute(Song.Album_Name);
+		dataset.addAttribute(Song.Album_Genres);
+		dataset.addAttribute(Song.Artists);
+		dataset.addAttribute(Song.Duration);
+		dataset.addAttribute(Song.Release_Date);
+		dataset.addAttribute(Song.Tempo);
+//		dataset.addAttribute(Song.Popularity);
+//		dataset.addAttribute(Song.Album_Type);
+//		dataset.addAttribute(Song.Explicit);
+
+
 	}
 
 //	private static String getValue(String tag, Element element) {
