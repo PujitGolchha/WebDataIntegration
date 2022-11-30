@@ -61,7 +61,7 @@ public class IR_using_machine_learning {
 		
 		// add comparators
 		matchingRule1.addComparator(new SongArtistsComparatorMaximumOfContainment());
-		matchingRule1.addComparator(new SongTrackComparatorLevenshteinEditDistance());
+		matchingRule1.addComparator(new SongTrackComparatorLevenshteinSimilarity());
 		matchingRule1.addComparator(new SongDateComparator2Years());
 		matchingRule1.addComparator(new AlbumTitleComparatorContainment());
 
@@ -70,7 +70,7 @@ public class IR_using_machine_learning {
 
 		// add comparators
 		matchingRule2.addComparator(new SongArtistsComparatorMaximumOfContainment());
-		matchingRule2.addComparator(new SongTrackComparatorLevenshteinEditDistance());
+		matchingRule2.addComparator(new SongTrackComparatorLevenshteinSimilarity());
 		matchingRule2.addComparator(new SongDateComparator2Years());
 		matchingRule2.addComparator(new AlbumTitleComparatorContainment());
 
@@ -79,7 +79,7 @@ public class IR_using_machine_learning {
 
 		// add comparators
 		matchingRule3.addComparator(new SongArtistsComparatorMaximumOfContainment());
-		matchingRule3.addComparator(new SongTrackComparatorLevenshteinEditDistance());
+		matchingRule3.addComparator(new SongTrackComparatorLevenshteinSimilarity());
 		matchingRule3.addComparator(new SongDateComparator2Years());
 		matchingRule3.addComparator(new AlbumTitleComparatorContainment());
 		// train the matching rule's model

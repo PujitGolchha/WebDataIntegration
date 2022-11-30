@@ -48,7 +48,7 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 		// the schema is defined in the Song class and not interpreted from the file, so we have to set the attributes manually
 		dataset.addAttribute(Song.Track_Name);
 		dataset.addAttribute(Song.Album_Name);
-		dataset.addAttribute(Song.Album_Genres);
+//		dataset.addAttribute(Song.Album_Genres);
 		dataset.addAttribute(Song.Artists);
 		dataset.addAttribute(Song.Duration);
 		dataset.addAttribute(Song.Release_Date);
@@ -76,6 +76,9 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 				song.setAlbum_type(getValueFromChildElement(child,"type"));
 				if(getValueFromChildElement(child, "genres") != null){
 					song.setAlbum_genres(getValueFromChildElement(child, "genres").replaceAll("\'", "").replaceAll("\\[", "").replaceAll("\\]","").split(", "));
+				}
+				else{
+					song.setAlbum_genres(new String[]{"-"});
 				}
 			}
 		}
@@ -112,12 +115,12 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 			song.setPopularity(Integer.parseInt(getValueFromChildElement(node, "popularity")));
 		}
 
-		if (getValueFromChildElement(node, "tempo") == null)
+		if (getValueFromChildElement(node, "Tempo") == null)
 		{
 			song.setTempo(Float.parseFloat("-1"));
 		}
 		else {
-			song.setTempo(Float.parseFloat(getValueFromChildElement(node, "tempo")));
+			song.setTempo(Float.parseFloat(getValueFromChildElement(node, "Tempo")));
 		}
 
 		if (getValueFromChildElement(node, "explicit") == null)
@@ -146,12 +149,6 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		// load the list of actors
-//		List<Actor> actors = getObjectListFromChildElement(node, "actors",
-//				"actor", new ActorXMLReader(), provenanceInfo);
-//		movie.setActors(actors);
-
 		return song;
 	}
 	public Song createInstanceForFusion(RecordGroup<Song, Attribute> cluster) {

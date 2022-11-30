@@ -21,9 +21,9 @@ public class SongXMLFormatter extends XMLFormatter<Song> {
         song.appendChild(createTextElementWithProvenance("album_name",
                 record.getAlbum_name(),
                 record.getMergedAttributeProvenance(Song.Album_Name), doc));
-        song.appendChild(createTextElementWithProvenance("release_date", record
-                .getRelease_date().toString(), record
-                .getMergedAttributeProvenance(Song.Release_Date), doc));
+        song.appendChild(createTextElementWithProvenance("release_date",
+                record.getRelease_date().toString(),
+                record.getMergedAttributeProvenance(Song.Release_Date), doc));
 
         song.appendChild(createTextElementWithProvenance("artists", record
                 .getArtists().toString(), record
@@ -39,7 +39,7 @@ public class SongXMLFormatter extends XMLFormatter<Song> {
 
         song.appendChild(createTextElementWithProvenance("duration", Float.toString(record.getDuration())
                 ,record
-                        .getMergedAttributeProvenance(Song.Tempo), doc));
+                        .getMergedAttributeProvenance(Song.Duration), doc));
 
         return song;
     }

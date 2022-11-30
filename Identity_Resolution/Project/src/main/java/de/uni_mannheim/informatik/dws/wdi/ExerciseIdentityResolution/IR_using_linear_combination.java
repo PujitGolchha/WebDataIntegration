@@ -65,7 +65,7 @@ public class IR_using_linear_combination
 		//matchingRule.addComparator(new SongArtistsComparatorGenJaccard(),0.25);
 //		matchingRule.addComparator(new SongArtistsComparatorGenMaxContainment());
     	matchingRule1.addComparator(new SongArtistsComparatorMaximumOfContainment(),0.25);
-		matchingRule1.addComparator(new SongTrackComparatorLevenshteinEditDistance(),0.25);
+		matchingRule1.addComparator(new SongTrackComparatorLevenshteinSimilarity(),0.25);
 		//matchingRule.addComparator(new AlbumTitleComparatorLevenshtein(), 0.5);
 
 		LinearCombinationMatchingRule<Song, Attribute> matchingRule2 = new LinearCombinationMatchingRule<>(
@@ -78,7 +78,7 @@ public class IR_using_linear_combination
 		//matchingRule.addComparator(new SongArtistsComparatorGenJaccard(),0.25);
 //		matchingRule.addComparator(new SongArtistsComparatorGenMaxContainment());
 		matchingRule2.addComparator(new SongArtistsComparatorMaximumOfContainment(),0.25);
-		matchingRule2.addComparator(new SongTrackComparatorLevenshteinEditDistance(),0.25);
+		matchingRule2.addComparator(new SongTrackComparatorLevenshteinSimilarity(),0.25);
 
 		LinearCombinationMatchingRule<Song, Attribute> matchingRule3 = new LinearCombinationMatchingRule<>(
 				0.5);
@@ -90,7 +90,7 @@ public class IR_using_linear_combination
 		//matchingRule.addComparator(new SongArtistsComparatorGenJaccard(),0.25);
 //		matchingRule.addComparator(new SongArtistsComparatorGenMaxContainment());
 		matchingRule3.addComparator(new SongArtistsComparatorMaximumOfContainment(),0.25);
-		matchingRule3.addComparator(new SongTrackComparatorLevenshteinEditDistance(),0.25);
+		matchingRule3.addComparator(new SongTrackComparatorLevenshteinSimilarity(),0.25);
 
 		// create a blocker (blocking strategy)
 		StandardRecordBlocker<Song, Attribute> blocker1 = new StandardRecordBlocker<Song, Attribute>(new AlbumBlockingKeyByTitleGenerator());
