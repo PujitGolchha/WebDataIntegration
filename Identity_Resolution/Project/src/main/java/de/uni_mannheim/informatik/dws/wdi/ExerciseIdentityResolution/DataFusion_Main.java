@@ -102,6 +102,7 @@ public class DataFusion_Main
 		strategy.activateDebugReport("data/output/debugResultsDatafusion.csv", -1, gs);
 		
 		// add attribute fusers
+		strategy.addAttributeFuser(Song.Track_Name, new Track_Name_Fuser(), new Track_Name_Evaluation_Rule());
 		strategy.addAttributeFuser(Song.Album_Name, new Album_Name_Fuser(),new Album_Name_Evaluation_Rule());
 		strategy.addAttributeFuser(Song.Tempo, new Tempo_Fuser(),new Tempo_Evaluation_Rule());
 		strategy.addAttributeFuser(Song.Release_Date, new Release_Date_Fuser(), new Release_Date_Evaluation_Rule());
