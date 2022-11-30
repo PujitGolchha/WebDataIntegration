@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Artists_Fuser extends AttributeValueFuser<List<String>, Song, Attribute> {
 
-    public Artists_Fuser () {super(new Union<String, Song, Attribute>());}
+    public Artists_Fuser() {super(new Union<String, Song, Attribute>());}
 
     @Override
     public boolean hasValue(Song record, Correspondence<Attribute, Matchable> correspondence) {

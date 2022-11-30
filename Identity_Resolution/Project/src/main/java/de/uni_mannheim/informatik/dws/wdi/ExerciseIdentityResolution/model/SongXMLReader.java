@@ -48,7 +48,7 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 		// the schema is defined in the Song class and not interpreted from the file, so we have to set the attributes manually
 		dataset.addAttribute(Song.Track_Name);
 		dataset.addAttribute(Song.Album_Name);
-//		dataset.addAttribute(Song.Album_Genres);
+		dataset.addAttribute(Song.Album_Genres);
 		dataset.addAttribute(Song.Artists);
 		dataset.addAttribute(Song.Duration);
 		dataset.addAttribute(Song.Release_Date);
@@ -84,6 +84,12 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 		}
 	}
 
+	protected void modifyArtists(Node node, String childname, Song song){
+		String artists = getValueFromChildElement(node, childname);
+		String[] art_array = artists.replaceAll("\'", "").replaceAll("\\[", "").replaceAll("\\]","").split(", ");
+		song.setArtists(art_array);
+	}
+
 	@Override
 	public Song createModelFromElement(Node node, String provenanceInfo) {
 		String id = getValueFromChildElement(node, "id");
@@ -97,7 +103,7 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 		song.setAlbum_name(getValueFromChildElement(node, "name"));
 
 		getChildElements(node, "album",song);
-
+		modifyArtists(node, "artists",song);
 
 		if (getValueFromChildElement(node, "duration") == null)
 		{
@@ -131,7 +137,6 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 			song.setExplicit(Boolean.parseBoolean(getValueFromChildElement(node, "explicit")));
 		}
 
-		song.setArtists(new String[]{getValueFromChildElement(node, "artists")});
 
 		// convert the date string into a DateTime object
 		try {

@@ -100,6 +100,9 @@ public class Song extends AbstractRecord<Attribute> implements Serializable {
     }
 
     public void setArtists(String[] artists) {
+        for(int i = 0; i< artists.length; i++){
+           artists[i] = artists[i].toLowerCase();
+        }
         this.artists = artists;
     }
 

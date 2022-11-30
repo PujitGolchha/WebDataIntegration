@@ -1,8 +1,11 @@
 package de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model;
+import edu.stanford.nlp.util.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import de.uni_mannheim.informatik.dws.winter.model.io.XMLFormatter;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class SongXMLFormatter extends XMLFormatter<Song> {
@@ -15,7 +18,8 @@ public class SongXMLFormatter extends XMLFormatter<Song> {
     public Element createElementFromRecord(Song record, Document doc) {
         Element song = doc.createElement("song");
         String str_album_genres = convertArrayToString(record.getAlbum_genres());
-        String str_artists = convertArrayToString(record.getArtists());
+//        String str_artists = convertArrayToString(record.getArtists());
+        String str_artists = String.join(",", Arrays.stream(record.getArtists()).map(x -> StringUtils.capitalize(x)).collect(Collectors.toList()));
 
         song.appendChild(createTextElement("id", record.getIdentifier(), doc));
 
@@ -56,7 +60,7 @@ public class SongXMLFormatter extends XMLFormatter<Song> {
     protected  String convertArrayToString(String[] arr){
         String res = "";
         for(int i = 0; i< arr.length; i++){
-            res += String.join(",",arr[i]);
+            res += String.join(",",arr[i])+",";
         }
         return res;
     }
