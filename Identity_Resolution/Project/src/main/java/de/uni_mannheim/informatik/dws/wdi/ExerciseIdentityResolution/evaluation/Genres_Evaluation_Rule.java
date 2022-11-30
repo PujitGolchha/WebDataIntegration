@@ -6,16 +6,19 @@ import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 
 public class Genres_Evaluation_Rule extends EvaluationRule<Song, Attribute> {
     @Override
     public boolean isEqual(Song record1, Song record2, Attribute schemaElement) {
-        if(record1.getAlbum_genres() == null && record2.getAlbum_genres()== null)
+        if(record1.getAlbum_genres().equals("-") && record2.getAlbum_genres().equals("-"))
             return true;
-        else if(record1.getAlbum_genres()== null ^ record2.getAlbum_genres()==null)
+        else if(record1.getAlbum_genres().equals("-") ^ record2.getAlbum_genres().equals("-"))
             return false;
         else
-            return (record1.getAlbum_genres() == (record2.getAlbum_genres()));
+            return ((Arrays.asList(record1.getAlbum_genres()).containsAll(Arrays.asList(record2.getAlbum_genres()))) || (Arrays.asList(record2.getAlbum_genres()).containsAll(Arrays.asList(record1.getAlbum_genres()))));
     }
 
     /* (non-Javadoc)
