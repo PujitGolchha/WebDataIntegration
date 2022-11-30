@@ -6,6 +6,7 @@ import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model.Song;
 import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model.SongXMLReader;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEngine;
 import de.uni_mannheim.informatik.dws.winter.matching.MatchingEvaluator;
+import de.uni_mannheim.informatik.dws.winter.matching.blockers.SortedNeighbourhoodBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.blockers.StandardRecordBlocker;
 import de.uni_mannheim.informatik.dws.winter.matching.rules.LinearCombinationMatchingRule;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
@@ -50,14 +51,22 @@ public class IR_using_linear_combination
 
 		// load the gold standard (test set)
 		logger.info("*\tLoading gold standard\t*");
-		MatchingGoldStandard gsTest = new MatchingGoldStandard();
-		gsTest.loadFromCSVFile(new File(
-				"data/goldstandard/ground_truth_test.csv"));
+		MatchingGoldStandard gsTest1 = new MatchingGoldStandard();
+		gsTest1.loadFromCSVFile(new File(
+				"data/goldstandard/ground_truth_test_deezer_musico.csv"));
+
+		MatchingGoldStandard gsTest2 = new MatchingGoldStandard();
+		gsTest2.loadFromCSVFile(new File(
+				"data/goldstandard/ground_truth_test_deezer_spotify.csv"));
+
+		MatchingGoldStandard gsTest3 = new MatchingGoldStandard();
+		gsTest3.loadFromCSVFile(new File(
+				"data/goldstandard/ground_truth_test_musico_spotify.csv"));
 
 		// create a matching rule
 		LinearCombinationMatchingRule<Song, Attribute> matchingRule1 = new LinearCombinationMatchingRule<>(
 				0.5);
-		matchingRule1.activateDebugReport("data/output/debugResultsMatchingRule1.csv", 1000, gsTest);
+		matchingRule1.activateDebugReport("data/output/debugResultsMatchingRule1.csv", 1000, gsTest1);
 
 		// add comparators
 		matchingRule1.addComparator(new SongDateComparator2Years(), 0.25);
@@ -65,24 +74,27 @@ public class IR_using_linear_combination
 		//matchingRule.addComparator(new SongArtistsComparatorGenJaccard(),0.25);
 //		matchingRule.addComparator(new SongArtistsComparatorGenMaxContainment());
     	matchingRule1.addComparator(new SongArtistsComparatorMaximumOfContainment(),0.25);
-		matchingRule1.addComparator(new SongTrackComparatorLevenshteinSimilarity(),0.25);
-		//matchingRule.addComparator(new AlbumTitleComparatorLevenshtein(), 0.5);
+		matchingRule1.addComparator(new SongTrackComparatorLevenshteinSim(),0.25);
+//		matchingRule1.addComparator(new SongTrackComparatorLevenshteinEditDistance(),0.5);
+//		matchingRule1.addComparator(new AlbumTitleComparatorLevenshtein(), 0.2);
 
 		LinearCombinationMatchingRule<Song, Attribute> matchingRule2 = new LinearCombinationMatchingRule<>(
 				0.5);
-		matchingRule2.activateDebugReport("data/output/debugResultsMatchingRule2.csv", 1000, gsTest);
+		matchingRule2.activateDebugReport("data/output/debugResultsMatchingRule2.csv", 1000, gsTest2);
 
 		// add comparators
-		matchingRule2.addComparator(new SongDateComparator2Years(), 0.25);
-		matchingRule2.addComparator(new AlbumTitleComparatorContainment(), 0.25);
+//		matchingRule2.addComparator(new SongDateComparator2Years(), 0.1);
+		matchingRule2.addComparator(new AlbumTitleComparatorContainment(), 0.2);
 		//matchingRule.addComparator(new SongArtistsComparatorGenJaccard(),0.25);
 //		matchingRule.addComparator(new SongArtistsComparatorGenMaxContainment());
-		matchingRule2.addComparator(new SongArtistsComparatorMaximumOfContainment(),0.25);
-		matchingRule2.addComparator(new SongTrackComparatorLevenshteinSimilarity(),0.25);
+		matchingRule2.addComparator(new SongArtistsComparatorMaximumOfContainment(),0.4);
+//		matchingRule2.addComparator(new SongTrackComparatorLevenshteinEditDistance(),0.4);
+		matchingRule2.addComparator(new SongTrackComparatorLevenshteinSim(),0.4);
+//		matchingRule2.addComparator(new AlbumTitleComparatorLevenshtein(), 0.25);
 
 		LinearCombinationMatchingRule<Song, Attribute> matchingRule3 = new LinearCombinationMatchingRule<>(
 				0.5);
-		matchingRule3.activateDebugReport("data/output/debugResultsMatchingRule3.csv", 1000, gsTest);
+		matchingRule3.activateDebugReport("data/output/debugResultsMatchingRule3.csv", 1000, gsTest3);
 
 		// add comparators
 		matchingRule3.addComparator(new SongDateComparator2Years(), 0.25);
@@ -90,24 +102,28 @@ public class IR_using_linear_combination
 		//matchingRule.addComparator(new SongArtistsComparatorGenJaccard(),0.25);
 //		matchingRule.addComparator(new SongArtistsComparatorGenMaxContainment());
 		matchingRule3.addComparator(new SongArtistsComparatorMaximumOfContainment(),0.25);
-		matchingRule3.addComparator(new SongTrackComparatorLevenshteinSimilarity(),0.25);
+//		matchingRule3.addComparator(new SongTrackComparatorLevenshteinEditDistance(),0.25);
+		matchingRule3.addComparator(new SongTrackComparatorLevenshteinSim(),0.25);
+		//matchingRule3.addComparator(new AlbumTitleComparatorLevenshtein(), 0.25);
 
 		// create a blocker (blocking strategy)
-		StandardRecordBlocker<Song, Attribute> blocker1 = new StandardRecordBlocker<Song, Attribute>(new AlbumBlockingKeyByTitleGenerator());
-		//StandardRecordBlocker<Song, Attribute> blocker = new StandardRecordBlocker<Song, Attribute>(new AlbumBlockingKeyByTitleGenerator());
-//		NoBlocker<Movie, Attribute> blocker = new NoBlocker<>();
-//		SortedNeighbourhoodBlocker<Movie, Attribute, Attribute> blocker = new SortedNeighbourhoodBlocker<>(new MovieBlockingKeyByTitleGenerator(), 1);
+		StandardRecordBlocker<Song, Attribute> blocker1 = new StandardRecordBlocker<Song, Attribute>(new SongBlockingKeyByTitleGenerator());
+//		//StandardRecordBlocker<Song, Attribute> blocker = new StandardRecordBlocker<Song, Attribute>(new AlbumBlockingKeyByTitleGenerator());
+////		NoBlocker<Movie, Attribute> blocker = new NoBlocker<>();
+////		SortedNeighbourhoodBlocker<Song, Attribute, Attribute> blocker1 = new SortedNeighbourhoodBlocker<>(new SongBlockingKeyByTitleGenerator(), 10000);
 		blocker1.setMeasureBlockSizes(true);
 		//Write debug results to file:
 		blocker1.collectBlockSizeData("data/output/debugResultsBlocking1.csv", 100);
 
 
-		StandardRecordBlocker<Song, Attribute> blocker2 = new StandardRecordBlocker<Song, Attribute>(new AlbumBlockingKeyByTitleGenerator());
+		StandardRecordBlocker<Song, Attribute> blocker2 = new StandardRecordBlocker<Song, Attribute>(new SongBlockingKeyByTitleGenerator());
+//		SortedNeighbourhoodBlocker<Song, Attribute, Attribute> blocker2 = new SortedNeighbourhoodBlocker<>(new SongBlockingKeyByTitleGenerator(), 10000);
 		blocker2.setMeasureBlockSizes(true);
 		blocker2.collectBlockSizeData("data/output/debugResultsBlocking2.csv", 100);
 
 
-		StandardRecordBlocker<Song, Attribute> blocker3 = new StandardRecordBlocker<Song, Attribute>(new AlbumBlockingKeyByTitleGenerator());
+		StandardRecordBlocker<Song, Attribute> blocker3 = new StandardRecordBlocker<Song, Attribute>(new SongBlockingKeyByTitleGenerator());
+//		SortedNeighbourhoodBlocker<Song, Attribute, Attribute> blocker3 = new SortedNeighbourhoodBlocker<>(new SongBlockingKeyByTitleGenerator(), 10000);
 		blocker3.setMeasureBlockSizes(true);
 		blocker3.collectBlockSizeData("data/output/debugResultsBlocking3.csv", 100);
 
@@ -143,11 +159,11 @@ public class IR_using_linear_combination
 		// evaluate your result
 		MatchingEvaluator<Song, Attribute> evaluator = new MatchingEvaluator<Song, Attribute>();
 		Performance perfTest1 = evaluator.evaluateMatching(correspondences1,
-				gsTest);
+				gsTest1);
 		Performance perfTest2 = evaluator.evaluateMatching(correspondences2,
-				gsTest);
+				gsTest2);
 		Performance perfTest3 = evaluator.evaluateMatching(correspondences3,
-				gsTest);
+				gsTest3);
 
 		// print the evaluation result
 		logger.info("Deezer <-> Musico");
