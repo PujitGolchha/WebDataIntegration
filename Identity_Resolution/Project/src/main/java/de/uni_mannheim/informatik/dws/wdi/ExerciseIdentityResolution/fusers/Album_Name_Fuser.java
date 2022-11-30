@@ -12,7 +12,7 @@ import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 
 public class Album_Name_Fuser extends AttributeValueFuser<String, Song, Attribute> {
 
-    public Album_Name_Fuser () {
+    public Album_Name_Fuser() {
         super(new ShortestString<Song, Attribute>());
     }
 

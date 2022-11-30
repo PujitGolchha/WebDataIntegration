@@ -77,8 +77,17 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 				if(getValueFromChildElement(child, "genres") != null){
 					song.setAlbum_genres(getValueFromChildElement(child, "genres").replaceAll("\'", "").replaceAll("\\[", "").replaceAll("\\]","").split(", "));
 				}
+				else{
+					song.setAlbum_genres(new String[]{"-"});
+				}
 			}
 		}
+	}
+
+	protected void modifyArtists(Node node, String childname, Song song){
+		String artists = getValueFromChildElement(node, childname);
+		String[] art_array = artists.replaceAll("\'", "").replaceAll("\\[", "").replaceAll("\\]","").split(", ");
+		song.setArtists(art_array);
 	}
 
 	@Override
@@ -94,7 +103,7 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 		song.setAlbum_name(getValueFromChildElement(node, "name"));
 
 		getChildElements(node, "album",song);
-
+		modifyArtists(node, "artists",song);
 
 		if (getValueFromChildElement(node, "duration") == null)
 		{
@@ -112,12 +121,12 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 			song.setPopularity(Integer.parseInt(getValueFromChildElement(node, "popularity")));
 		}
 
-		if (getValueFromChildElement(node, "tempo") == null)
+		if (getValueFromChildElement(node, "Tempo") == null)
 		{
 			song.setTempo(Float.parseFloat("-1"));
 		}
 		else {
-			song.setTempo(Float.parseFloat(getValueFromChildElement(node, "tempo")));
+			song.setTempo(Float.parseFloat(getValueFromChildElement(node, "Tempo")));
 		}
 
 		if (getValueFromChildElement(node, "explicit") == null)
@@ -128,7 +137,6 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 			song.setExplicit(Boolean.parseBoolean(getValueFromChildElement(node, "explicit")));
 		}
 
-		song.setArtists(new String[]{getValueFromChildElement(node, "artists")});
 
 		// convert the date string into a DateTime object
 		try {
@@ -146,12 +154,6 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		// load the list of actors
-//		List<Actor> actors = getObjectListFromChildElement(node, "actors",
-//				"actor", new ActorXMLReader(), provenanceInfo);
-//		movie.setActors(actors);
-
 		return song;
 	}
 	public Song createInstanceForFusion(RecordGroup<Song, Attribute> cluster) {

@@ -37,9 +37,10 @@ public class Song extends AbstractRecord<Attribute> implements Serializable {
      * <actor> <name>Jeff Bridges</name> </actor> <actor> <name>Hailee
      * Steinfeld</name> </actor> </actors> <date>2010-01-01</date> </movie>
      */
-
-    protected String id;
-//    protected String provenance;
+    private static final long serialVersionUID = 1L;
+    public Song(String identifier, String provenance) {
+        super(identifier, provenance);
+    }
     private String track_name;
     private LocalDateTime release_date;
     private String album_name;
@@ -53,18 +54,6 @@ public class Song extends AbstractRecord<Attribute> implements Serializable {
 
     private Map<Attribute, Collection<String>> provenance = new HashMap<>();
     private Collection<String> recordProvenance;
-
-    public Song(String identifier, String provenance) {
-        super(identifier, provenance);
-        id = identifier;
-
-    }
-
-    @Override
-    public String getIdentifier() {
-        return id;
-    }
-
 
     public String getTrack_name() {
         return track_name;
@@ -103,7 +92,7 @@ public class Song extends AbstractRecord<Attribute> implements Serializable {
     }
 
     public void setAlbum_genres(String[] album_genres) {
-        this.album_genres = album_genres;
+            this.album_genres = album_genres;
     }
 
     public String[] getArtists() {
@@ -111,6 +100,9 @@ public class Song extends AbstractRecord<Attribute> implements Serializable {
     }
 
     public void setArtists(String[] artists) {
+        for(int i = 0; i< artists.length; i++){
+           artists[i] = artists[i].toLowerCase();
+        }
         this.artists = artists;
     }
 
@@ -188,35 +180,25 @@ public class Song extends AbstractRecord<Attribute> implements Serializable {
     public static final Attribute Artists= new Attribute("Artists");
 
     public static final Attribute Tempo= new Attribute("Tempo");
-//    public static final Attribute Popularity= new Attribute("Popularity");
-//    public static final Attribute Explicit= new Attribute("Explicit");
-
 
     public static final Attribute Album_Genres= new Attribute("Album_Genres");
-//    public static final Attribute Album_Type= new Attribute("Album_Type");
 
     @Override
     public boolean hasValue(Attribute attribute) {
-        if(attribute==Track_Name)
+        if(attribute == Track_Name)
             return getTrack_name() != null && !getTrack_name().isEmpty();
         else if(attribute==Album_Name)
             return getAlbum_name() != null && !getAlbum_name().isEmpty();
         else if(attribute==Release_Date)
             return getRelease_date() != null;
         else if(attribute==Duration)
-            return getDuration() != 0;
+            return getDuration() != 0.0;
         else if(attribute==Artists)
             return getArtists() != null;
         else if(attribute==Tempo)
-            return getTempo() != 0;
-//        else if(attribute==Popularity)
-//            return getPopularity() != 0;
+            return getTempo() != 0.0;
         else if(attribute==Album_Genres)
             return getAlbum_genres() != null;
-//        else if(attribute==Album_Type)
-//            return getAlbum_type() != null;
-//        else if(attribute==Explicit)
-//            return !getExplicit();
         else
             return false;
     }

@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 import java.util.Locale;
 
-import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.evaluation.Album_Name_Evaluation_Rule;
-import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.fusers.Album_Name_Fuser;
+import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.evaluation.*;
+import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.fusers.*;
 import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model.Song;
 import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model.SongXMLReader;
 import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model.SongXMLFormatter;
@@ -52,16 +52,16 @@ public class DataFusion_Main
 		new SongXMLReader().loadFromXML(new File("data/input/musico_schema_new.xml"), "/Songs/song", dataMusico);
 		dataMusico.printDataSetDensityReport();
 
-//		FusibleDataSet<Song, Attribute> dataSpotify = new FusibleHashedDataSet<>();
-//		new SongXMLReader().loadFromXML(new File("data/input/spotify.xml"), "/Songs/song", dataSpotify);
-//		dataSpotify.printDataSetDensityReport();
+		FusibleDataSet<Song, Attribute> dataSpotify = new FusibleHashedDataSet<>();
+		new SongXMLReader().loadFromXML(new File("data/input/spotify.xml"), "/Songs/song", dataSpotify);
+		dataSpotify.printDataSetDensityReport();
 
 
 		// Maintain Provenance
 		// Scores (e.g. from rating)
 		dataDeezer.setScore(1.0);
 		dataMusico.setScore(2.0);
-		//dataSpotify.setScore(3.0);
+		dataSpotify.setScore(3.0);
 
 		// Date (e.g. last update)
 		DateTimeFormatter formatter = new DateTimeFormatterBuilder()
@@ -73,14 +73,15 @@ public class DataFusion_Main
 
 		dataDeezer.setDate(LocalDateTime.parse("2012-01-01", formatter));
 		dataMusico.setDate(LocalDateTime.parse("2010-01-01", formatter));
-		//dataSpotify.setDate(LocalDateTime.parse("2008-01-01", formatter));
+		dataSpotify.setDate(LocalDateTime.parse("2008-01-01", formatter));
 
 		// load correspondences
 		logger.info("*\tLoading correspondences\t*");
 		CorrespondenceSet<Song, Attribute> correspondences = new CorrespondenceSet<>();
-		correspondences.loadCorrespondences(new File("data/output/songs_correspondences_dez_musico.csv"),dataDeezer, dataMusico);
-		//correspondences.loadCorrespondences(new File("data/output/songs_correspondences_dez_spotify.csv"),dataDeezer, dataSpotify);
-		//correspondences.loadCorrespondences(new File("data/output/songs_correspondences_spot_musico.csv"),dataSpotify, dataMusico);
+		//not considering deezer-musico correspondences
+//		correspondences.loadCorrespondences(new File("data/output/songs_correspondences_dez_musico.csv"),dataDeezer, dataMusico);
+		correspondences.loadCorrespondences(new File("data/output/songs_correspondences_dez_spotify.csv"),dataSpotify,dataDeezer);
+		correspondences.loadCorrespondences(new File("data/output/songs_correspondences_spot_musico.csv"),dataSpotify, dataMusico);
 
 
 		// write group size distribution
@@ -102,9 +103,10 @@ public class DataFusion_Main
 		
 		// add attribute fusers
 		strategy.addAttributeFuser(Song.Album_Name, new Album_Name_Fuser(),new Album_Name_Evaluation_Rule());
-//		strategy.addAttributeFuser(Song.Track_Name,new DirectorFuserLongestString(), new DirectorEvaluationRule());
-//		strategy.addAttributeFuser(Song.Track_Name, new DateFuserFavourSource(),new DateEvaluationRule());
-//		strategy.addAttributeFuser(Song.Track_Name,new ActorsFuserUnion(),new ActorsEvaluationRule());
+		strategy.addAttributeFuser(Song.Tempo, new Tempo_Fuser(),new Tempo_Evaluation_Rule());
+		strategy.addAttributeFuser(Song.Release_Date, new Release_Date_Fuser(), new Release_Date_Evaluation_Rule());
+		strategy.addAttributeFuser(Song.Artists, new Artists_Fuser(), new Artists_Evaluation_Rule());
+		strategy.addAttributeFuser(Song.Album_Genres, new Genres_Fuser(), new Genres_Evaluation_Rule());
 		
 		// create the fusion engine
 		DataFusionEngine<Song, Attribute> engine = new DataFusionEngine<>(strategy);
