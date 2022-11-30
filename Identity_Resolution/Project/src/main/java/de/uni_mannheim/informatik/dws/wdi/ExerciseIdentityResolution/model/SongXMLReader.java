@@ -78,7 +78,7 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 					song.setAlbum_genres(getValueFromChildElement(child, "genres").replaceAll("\'", "").replaceAll("\\[", "").replaceAll("\\]","").split(", "));
 				}
 				else{
-					song.setAlbum_genres(new String[]{"-"});
+					song.setAlbum_genres(new String[]{""});
 				}
 			}
 		}

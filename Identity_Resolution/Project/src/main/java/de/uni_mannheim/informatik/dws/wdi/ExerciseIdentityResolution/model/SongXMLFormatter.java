@@ -60,9 +60,17 @@ public class SongXMLFormatter extends XMLFormatter<Song> {
     protected  String convertArrayToString(String[] arr){
         String res = "";
         for(int i = 0; i< arr.length; i++){
-            res += String.join(",",arr[i])+",";
+            if(arr[i]!=""){
+                res += arr[i]+", ";
+            }
         }
-        return res;
+
+        if(res.isEmpty()){
+            return res;
+        }
+        else{
+            return res.substring(0,res.length()-2);
+        }
     }
 
 }
