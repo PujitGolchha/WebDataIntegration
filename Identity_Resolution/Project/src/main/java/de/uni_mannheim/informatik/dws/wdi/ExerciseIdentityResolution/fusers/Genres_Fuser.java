@@ -17,6 +17,7 @@ import java.util.List;
 
 public class Genres_Fuser extends AttributeValueFuser<List<String>, Song, Attribute> {
 
+
     public Genres_Fuser() {super(new Union<String, Song, Attribute>());}
 
     @Override
