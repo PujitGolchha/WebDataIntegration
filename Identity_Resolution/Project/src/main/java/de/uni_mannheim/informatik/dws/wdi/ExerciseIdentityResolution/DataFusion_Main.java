@@ -90,7 +90,7 @@ public class DataFusion_Main
 		// load the gold standard
 		logger.info("*\tEvaluating results\t*");
 		DataSet<Song, Attribute> gs = new FusibleHashedDataSet<>();
-		new SongXMLReader().loadFromXML(new File("data/goldstandard/gold.xml"), "/Songs/song", gs);
+		new SongXMLReader().loadFromXML(new File("data/goldstandard/gold2.xml"), "/Songs/song", gs);
 
 		for(Song m : gs.get()) {
 			logger.info(String.format("gs: %s", m.getIdentifier()));
@@ -105,9 +105,12 @@ public class DataFusion_Main
 		strategy.addAttributeFuser(Song.Track_Name, new Track_Name_Fuser(), new Track_Name_Evaluation_Rule());
 		strategy.addAttributeFuser(Song.Album_Name, new Album_Name_Fuser(),new Album_Name_Evaluation_Rule());
 		strategy.addAttributeFuser(Song.Tempo, new Tempo_Fuser(),new Tempo_Evaluation_Rule());
+		strategy.addAttributeFuser(Song.Duration, new Duration_Fuser(),new Duration_Evaluation_Rule());
 		strategy.addAttributeFuser(Song.Release_Date, new Release_Date_Fuser(), new Release_Date_Evaluation_Rule());
 		strategy.addAttributeFuser(Song.Artists, new Artists_Fuser(), new Artists_Evaluation_Rule());
 		strategy.addAttributeFuser(Song.Album_Genres, new Genres_Fuser(), new Genres_Evaluation_Rule());
+//		strategy.addAttributeFuser(Song.Album_Type, new Album_Type_Fuser(), new Album_Type_Evaluation_Rule());
+//		strategy.addAttributeFuser(Song.Explicit, new Explicit_Fuser(), new Explicit_Evaluation_Rule());
 		
 		// create the fusion engine
 		DataFusionEngine<Song, Attribute> engine = new DataFusionEngine<>(strategy);

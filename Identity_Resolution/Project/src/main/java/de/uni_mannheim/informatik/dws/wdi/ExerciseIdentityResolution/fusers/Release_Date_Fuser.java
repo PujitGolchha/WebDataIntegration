@@ -4,6 +4,7 @@ import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model.Song;
 import de.uni_mannheim.informatik.dws.winter.datafusion.AttributeValueFuser;
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.meta.MostRecent;
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.numeric.Average;
+import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.conflictresolution.date.Earliest;
 import de.uni_mannheim.informatik.dws.winter.model.Correspondence;
 import de.uni_mannheim.informatik.dws.winter.model.FusedValue;
 import de.uni_mannheim.informatik.dws.winter.model.Matchable;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 public class Release_Date_Fuser extends AttributeValueFuser<LocalDateTime, Song, Attribute> {
 
     public Release_Date_Fuser() {
-        super(new MostRecent<LocalDateTime, Song, Attribute>());
+        super(new Earliest<LocalDateTime, Song, Attribute>());
     }
     @Override
     public boolean hasValue(Song record, Correspondence<Attribute, Matchable> correspondence) {

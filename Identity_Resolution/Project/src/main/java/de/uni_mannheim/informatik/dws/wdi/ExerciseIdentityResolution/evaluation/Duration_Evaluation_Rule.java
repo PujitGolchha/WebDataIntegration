@@ -13,7 +13,7 @@ public class Duration_Evaluation_Rule extends EvaluationRule<Song, Attribute> {
 
         if(record1.getDuration() == -1 && record2.getDuration() == -1)
             return true;
-        else if(Math.abs(record1.getDuration() - record2.getDuration()) <= 3)
+        else if(Math.abs(record1.getDuration() - record2.getDuration()) <= 5)
             return true;
         else
             return false;

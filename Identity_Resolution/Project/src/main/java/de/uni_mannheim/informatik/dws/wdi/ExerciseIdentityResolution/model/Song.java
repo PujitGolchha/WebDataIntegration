@@ -20,6 +20,7 @@ import java.util.Map;
 
 import de.uni_mannheim.informatik.dws.winter.model.AbstractRecord;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import weka.core.pmml.jaxbbindings.False;
 
@@ -183,6 +184,10 @@ public class Song extends AbstractRecord<Attribute> implements Serializable {
 
     public static final Attribute Album_Genres= new Attribute("Album_Genres");
 
+    public static final Attribute Album_Type= new Attribute("Album_Type");
+
+    public static final Attribute Explicit= new Attribute("Explicit");
+
     @Override
     public boolean hasValue(Attribute attribute) {
         if(attribute == Track_Name)
@@ -190,15 +195,22 @@ public class Song extends AbstractRecord<Attribute> implements Serializable {
         else if(attribute==Album_Name)
             return getAlbum_name() != null && !getAlbum_name().isEmpty();
         else if(attribute==Release_Date)
-            return getRelease_date() != null;
+            return !(getRelease_date().getYear()==1900);
         else if(attribute==Duration)
-            return getDuration() != 0.0;
+            return getDuration() != -1;
         else if(attribute==Artists)
-            return getArtists() != null;
+            return ArrayUtils.isNotEmpty(getArtists());
         else if(attribute==Tempo)
-            return getTempo() != 0.0;
+            return getTempo() != -1.0;
         else if(attribute==Album_Genres)
-            return getAlbum_genres() != null;
+            return ArrayUtils.isNotEmpty(getAlbum_genres());
+        else if(attribute==Album_Type)
+            return !getAlbum_type().equals("");
+
+        // Boolean explicit will always have a value as set in SongXMLReader (default false)
+        else if(attribute==Explicit)
+            return getExplicit() || !getExplicit();
+
         else
             return false;
     }
