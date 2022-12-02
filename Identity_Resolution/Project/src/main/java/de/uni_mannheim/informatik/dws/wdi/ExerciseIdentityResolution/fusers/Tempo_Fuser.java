@@ -1,5 +1,6 @@
 package de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.fusers;
 
+import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.conflictresolution.numeric.Max;
 import de.uni_mannheim.informatik.dws.wdi.ExerciseIdentityResolution.model.Song;
 import de.uni_mannheim.informatik.dws.winter.datafusion.AttributeValueFuser;
 import de.uni_mannheim.informatik.dws.winter.datafusion.conflictresolution.numeric.Average;
@@ -11,10 +12,10 @@ import de.uni_mannheim.informatik.dws.winter.model.RecordGroup;
 import de.uni_mannheim.informatik.dws.winter.model.defaultmodel.Attribute;
 import de.uni_mannheim.informatik.dws.winter.processing.Processable;
 
-public class Tempo_Fuser extends AttributeValueFuser<Double, Song, Attribute> {
+public class Tempo_Fuser extends AttributeValueFuser<Double, Song, Attribute>  {
 
     public Tempo_Fuser () {
-        super(new Average<Song, Attribute>());
+        super(new Max<Song, Attribute>());
     }
     @Override
     public boolean hasValue(Song record, Correspondence<Attribute, Matchable> correspondence) {

@@ -54,8 +54,8 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 		dataset.addAttribute(Song.Release_Date);
 		dataset.addAttribute(Song.Tempo);
 //		dataset.addAttribute(Song.Popularity);
-//		dataset.addAttribute(Song.Album_Type);
-//		dataset.addAttribute(Song.Explicit);
+		dataset.addAttribute(Song.Album_Type);
+		dataset.addAttribute(Song.Explicit);
 
 
 	}
@@ -73,7 +73,12 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 			Node child = children.item(j);
 			if (child.getNodeType() == 1 && child.getNodeName().equals(childName)) {
 				song.setAlbum_name(getValueFromChildElement(child,"name"));
-				song.setAlbum_type(getValueFromChildElement(child,"type"));
+				if(getValueFromChildElement(child, "type") != null){
+					song.setAlbum_type(getValueFromChildElement(child,"type"));
+				}
+				else {
+					song.setAlbum_type("");
+				}
 				if(getValueFromChildElement(child, "genres") != null){
 					song.setAlbum_genres(getValueFromChildElement(child, "genres").replaceAll("\'", "").replaceAll("\\[", "").replaceAll("\\]","").split(", "));
 				}
@@ -86,8 +91,13 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 
 	protected void modifyArtists(Node node, String childname, Song song){
 		String artists = getValueFromChildElement(node, childname);
-		String[] art_array = artists.replaceAll("\'", "").replaceAll("\\[", "").replaceAll("\\]","").split(", ");
-		song.setArtists(art_array);
+		if(artists!=null){
+			String[] art_array = artists.replaceAll("\'", "").replaceAll("\\[", "").replaceAll("\\]","").split(", ");
+			song.setArtists(art_array);
+		}
+		else {
+			song.setArtists(new String[]{""});
+		}
 	}
 
 	@Override
@@ -100,9 +110,10 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 		// fill the attributes
 		song.setTrack_name(getValueFromChildElement(node, "track_name"));
 
-		song.setAlbum_name(getValueFromChildElement(node, "name"));
+	//	song.setAlbum_name(getValueFromChildElement(node, "name"));
 
 		getChildElements(node, "album",song);
+
 		modifyArtists(node, "artists",song);
 
 		if (getValueFromChildElement(node, "duration") == null)
