@@ -65,45 +65,48 @@ public class IR_using_linear_combination
 
 		// create a matching rule
 		LinearCombinationMatchingRule<Song, Attribute> matchingRule1 = new LinearCombinationMatchingRule<>(
-				0.5);
+				0.6);
 		matchingRule1.activateDebugReport("data/output/debugResultsMatchingRule1.csv", 1000, gsTest1);
 
 		// add comparators
 		matchingRule1.addComparator(new SongDateComparator2Years(), 0.25);
+		matchingRule1.addComparator(new SongTrackAnomalityComparatorLevenshteinSimilarity(), 0.25);
 		matchingRule1.addComparator(new AlbumTitleComparatorContainment(), 0.25);
 		//matchingRule.addComparator(new SongArtistsComparatorGenJaccard(),0.25);
-//		matchingRule.addComparator(new SongArtistsComparatorGenMaxContainment());
+//		matchingRule1.addComparator(new SongArtistsComparatorGenMaxContainment(), 0.25);
     	matchingRule1.addComparator(new SongArtistsComparatorMaximumOfContainment(),0.25);
-		matchingRule1.addComparator(new SongTrackComparatorLevenshteinSim(),0.25);
+	//	matchingRule1.addComparator(new SongTrackComparatorLevenshteinSim(),0.25);
 //		matchingRule1.addComparator(new SongTrackComparatorLevenshteinEditDistance(),0.5);
 //		matchingRule1.addComparator(new AlbumTitleComparatorLevenshtein(), 0.2);
 
 		LinearCombinationMatchingRule<Song, Attribute> matchingRule2 = new LinearCombinationMatchingRule<>(
-				0.5);
+				0.6);
 		matchingRule2.activateDebugReport("data/output/debugResultsMatchingRule2.csv", 1000, gsTest2);
 
 		// add comparators
-//		matchingRule2.addComparator(new SongDateComparator2Years(), 0.1);
-		matchingRule2.addComparator(new AlbumTitleComparatorContainment(), 0.2);
+		matchingRule2.addComparator(new SongDateComparator2Years(), 0.25);
+		matchingRule2.addComparator(new AlbumTitleComparatorContainment(), 0.25);
 		//matchingRule.addComparator(new SongArtistsComparatorGenJaccard(),0.25);
-//		matchingRule.addComparator(new SongArtistsComparatorGenMaxContainment());
-		matchingRule2.addComparator(new SongArtistsComparatorMaximumOfContainment(),0.4);
+//		matchingRule2.addComparator(new SongArtistsComparatorGenMaxContainment(), 0.25);
+		matchingRule2.addComparator(new SongTrackAnomalityComparatorLevenshteinSimilarity(), 0.25);
+		matchingRule2.addComparator(new SongArtistsComparatorMaximumOfContainment(),0.25);
 //		matchingRule2.addComparator(new SongTrackComparatorLevenshteinEditDistance(),0.4);
-		matchingRule2.addComparator(new SongTrackComparatorLevenshteinSim(),0.4);
+//		matchingRule2.addComparator(new SongTrackComparatorLevenshteinSim(),0.4);
 //		matchingRule2.addComparator(new AlbumTitleComparatorLevenshtein(), 0.25);
 
 		LinearCombinationMatchingRule<Song, Attribute> matchingRule3 = new LinearCombinationMatchingRule<>(
-				0.5);
+				0.6);
 		matchingRule3.activateDebugReport("data/output/debugResultsMatchingRule3.csv", 1000, gsTest3);
 
 		// add comparators
+		matchingRule3.addComparator(new SongTrackAnomalityComparatorLevenshteinSimilarity(), 0.25);
 		matchingRule3.addComparator(new SongDateComparator2Years(), 0.25);
 		matchingRule3.addComparator(new AlbumTitleComparatorContainment(), 0.25);
 		//matchingRule.addComparator(new SongArtistsComparatorGenJaccard(),0.25);
-//		matchingRule.addComparator(new SongArtistsComparatorGenMaxContainment());
+//		matchingRule3.addComparator(new SongArtistsComparatorGenMaxContainment(), 0.25);
 		matchingRule3.addComparator(new SongArtistsComparatorMaximumOfContainment(),0.25);
 //		matchingRule3.addComparator(new SongTrackComparatorLevenshteinEditDistance(),0.25);
-		matchingRule3.addComparator(new SongTrackComparatorLevenshteinSim(),0.25);
+//		matchingRule3.addComparator(new SongTrackComparatorLevenshteinSim(),0.25);
 		//matchingRule3.addComparator(new AlbumTitleComparatorLevenshtein(), 0.25);
 
 		// create a blocker (blocking strategy)

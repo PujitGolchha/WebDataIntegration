@@ -49,25 +49,37 @@ public class SongTrackAnomalityComparatorLevenshteinSimilarity implements Compar
 		s4 = s4.replaceAll("\\p{Punct}","");
 		double similarity1 = 0.0;
 		if(s3.equals(s4)){
-			Pattern p = Pattern.compile("[(\\[{].*[)\\]}]");
-			Matcher m1 = p.matcher(s1);
-			Matcher m2 = p.matcher(s2);
-			if (m1.find() && !m2.find())
-			{
-				String edition1 = m1.group(1);
-				if(edition1.contains("remaster")){similarity1= sim.calculate(s1, s2);}
-				else similarity1 = 1.0;
-			}
-			else if (m2.find() && !m1.find()) {
-				String edition2 = m2.group(1);
-				if(edition2.contains("remaster")){similarity1= sim.calculate(s1, s2);}
-				else similarity1 = 1.0;
-			}
-			else{
-				String edition1 = m1.group(1);
-				String edition2 = m2.group(1);
-				if(edition1.contains("remaster") && edition2.contains("remaster")){similarity1= 1.0;}
-				else {similarity1 = sim.calculate(s1, s2);}
+			if(s1.equals(s2)){similarity1 = sim.calculate(s1, s2);}
+			else {
+				Pattern p = Pattern.compile("( [(\\[{].*[)\\]}] )");
+				Matcher m1 = p.matcher(s1);
+				Matcher m2 = p.matcher(s2);
+
+				if (m1.find() && !m2.find()) {
+
+					String edition1 = m1.group(1);
+					if (edition1.contains("remaster")) {
+						similarity1 = sim.calculate(s1, s2);
+					} else {similarity1 = 1.0;}
+				}
+				else if (m2.find() && !m1.find()) {
+					String edition2 = m2.group(1);
+					if (edition2.contains("remaster")) {
+						similarity1 = sim.calculate(s1, s2);
+					} else {similarity1 = 1.0;}
+				}
+				else if (m2.find() && m1.find()) {
+					String edition1 = m1.group(1);
+					String edition2 = m2.group(1);
+					if (edition1.contains("remaster") && edition2.contains("remaster")) {
+						similarity1 = 1.0;
+					} else {
+						similarity1 = sim.calculate(s1, s2);
+					}
+				}
+				else{
+					similarity1 = sim.calculate(s1, s2);
+				}
 			}
 		}
 		else{
