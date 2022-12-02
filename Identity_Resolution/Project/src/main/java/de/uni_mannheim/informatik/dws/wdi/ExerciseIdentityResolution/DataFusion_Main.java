@@ -71,9 +71,9 @@ public class DataFusion_Main
 		        .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
 		        .toFormatter(Locale.ENGLISH);
 
-		dataDeezer.setDate(LocalDateTime.parse("2012-01-01", formatter));
-		dataMusico.setDate(LocalDateTime.parse("2010-01-01", formatter));
-		dataSpotify.setDate(LocalDateTime.parse("2008-01-01", formatter));
+		dataDeezer.setDate(LocalDateTime.parse("2020-05-20", formatter));
+		dataMusico.setDate(LocalDateTime.parse("2020-05-20", formatter));
+		dataSpotify.setDate(LocalDateTime.parse("2022-01-10", formatter));
 
 		// load correspondences
 		logger.info("*\tLoading correspondences\t*");
