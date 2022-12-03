@@ -109,7 +109,7 @@ public class DataFusion_Main
 		strategy.addAttributeFuser(Song.Release_Date, new Release_Date_Fuser(), new Release_Date_Evaluation_Rule());
 		strategy.addAttributeFuser(Song.Artists, new Artists_Fuser(), new Artists_Evaluation_Rule());
 		strategy.addAttributeFuser(Song.Album_Genres, new Genres_Fuser(), new Genres_Evaluation_Rule());
-//		strategy.addAttributeFuser(Song.Album_Type, new Album_Type_Fuser(), new Album_Type_Evaluation_Rule());
+    	strategy.addAttributeFuser(Song.Album_Type, new Album_Type_Fuser(), new Album_Type_Evaluation_Rule());
 //		strategy.addAttributeFuser(Song.Explicit, new Explicit_Fuser(), new Explicit_Evaluation_Rule());
 		
 		// create the fusion engine

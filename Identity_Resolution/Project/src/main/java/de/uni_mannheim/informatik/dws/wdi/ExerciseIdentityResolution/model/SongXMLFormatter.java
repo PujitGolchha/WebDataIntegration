@@ -50,9 +50,9 @@ public class SongXMLFormatter extends XMLFormatter<Song> {
                 ,record
                         .getMergedAttributeProvenance(Song.Duration), doc));
 
-        song.appendChild(createTextElementWithProvenance("explicit", Boolean.toString(record.getExplicit())
-                ,record
-                        .getMergedAttributeProvenance(Song.Explicit), doc));
+//        song.appendChild(createTextElementWithProvenance("explicit", Boolean.toString(record.getExplicit())
+//                ,record
+//                        .getMergedAttributeProvenance(Song.Explicit), doc));
 
         return song;
     }

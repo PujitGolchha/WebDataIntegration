@@ -195,7 +195,7 @@ public class Song extends AbstractRecord<Attribute> implements Serializable {
         else if(attribute==Album_Name)
             return getAlbum_name() != null && !getAlbum_name().isEmpty();
         else if(attribute==Release_Date)
-            return !(getRelease_date().getYear()==1900);
+            return getRelease_date() != null;
         else if(attribute==Duration)
             return getDuration() != -1;
         else if(attribute==Artists)

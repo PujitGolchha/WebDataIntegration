@@ -72,7 +72,11 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 		for(int j = 0; j < children.getLength(); ++j) {
 			Node child = children.item(j);
 			if (child.getNodeType() == 1 && child.getNodeName().equals(childName)) {
-				song.setAlbum_name(getValueFromChildElement(child,"name"));
+				if(getValueFromChildElement(child,"name") != null){
+				song.setAlbum_name(getValueFromChildElement(child,"name"));}
+				else{
+					song.setAlbum_name("");
+				}
 				if(getValueFromChildElement(child, "type") != null){
 					song.setAlbum_type(getValueFromChildElement(child,"type"));
 				}

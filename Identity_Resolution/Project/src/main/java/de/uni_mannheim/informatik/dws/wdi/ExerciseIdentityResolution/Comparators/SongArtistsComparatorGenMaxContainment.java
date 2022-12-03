@@ -35,8 +35,7 @@ public class SongArtistsComparatorGenMaxContainment implements Comparator<Song, 
 
 	private static final long serialVersionUID = 1L;
 	private LevenshteinSimilarity lev_sim = new LevenshteinSimilarity();
-	//todo check what is the similarity threshold
-	private GeneralisedMaximumOfContainment sim = new GeneralisedMaximumOfContainment(lev_sim,0.5);
+	private GeneralisedMaximumOfContainment sim = new GeneralisedMaximumOfContainment(lev_sim,0.8);
 	private ComparatorLogger comparisonLog;
 
 	@Override
@@ -55,15 +54,13 @@ public class SongArtistsComparatorGenMaxContainment implements Comparator<Song, 
 		new_s2 = new_s2.stream().map(x -> x.toLowerCase().replaceAll("\\p{Punct}","")).collect(Collectors.toList());
 
 		double similarity = sim.calculate(new_s1, new_s2);
-		
+
 		if(this.comparisonLog != null){
 			this.comparisonLog.setComparatorName(getClass().getName());
-			for(int i = 0; i<=new_s1.size(); i++) {
-				this.comparisonLog.setRecord1Value(s1[i]);
-			}
-			for(int i = 0; i<=new_s2.size(); i++) {
-				this.comparisonLog.setRecord2Value(s2[i]);
-			}
+			this.comparisonLog.setRecord1Value(String.join(",",s1));
+			this.comparisonLog.setRecord2Value(String.join(",",s2));
+			this.comparisonLog.setRecord1PreprocessedValue(String.join(",",new_s1));
+			this.comparisonLog.setRecord2PreprocessedValue(String.join(",",new_s2));
 			this.comparisonLog.setSimilarity(Double.toString(similarity));
 		}
 		

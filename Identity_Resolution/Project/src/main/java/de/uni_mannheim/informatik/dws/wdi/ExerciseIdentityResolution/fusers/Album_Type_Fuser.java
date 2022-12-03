@@ -30,7 +30,7 @@ public class Album_Type_Fuser extends AttributeValueFuser<String, Song, Attribut
     @Override
     public void fuse(RecordGroup<Song, Attribute> group, Song fusedRecord, Processable<Correspondence<Attribute, Matchable>> schemaCorrespondences, Attribute schemaElement) {
         FusedValue<String, Song, Attribute> fused = getFusedValue(group, schemaCorrespondences, schemaElement);
-        fusedRecord.setAlbum_name(fused.getValue());
+        fusedRecord.setAlbum_type(fused.getValue());
         fusedRecord.setAttributeProvenance(Song.Album_Type,
                 fused.getOriginalIds());
     }
