@@ -32,12 +32,6 @@ import weka.core.pmml.jaxbbindings.False;
  */
 public class Song extends AbstractRecord<Attribute> implements Serializable {
 
-    /*
-     * example entry <movie> <id>academy_awards_2</id> <title>True Grit</title>
-     * <director> <name>Joel Coen and Ethan Coen</name> </director> <actors>
-     * <actor> <name>Jeff Bridges</name> </actor> <actor> <name>Hailee
-     * Steinfeld</name> </actor> </actors> <date>2010-01-01</date> </movie>
-     */
     private static final long serialVersionUID = 1L;
     public Song(String identifier, String provenance) {
         super(identifier, provenance);

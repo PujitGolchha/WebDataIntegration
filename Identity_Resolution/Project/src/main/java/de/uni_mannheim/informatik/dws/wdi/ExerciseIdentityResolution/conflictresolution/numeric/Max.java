@@ -10,6 +10,8 @@ import java.util.Collection;
 import java.util.Iterator;
 
 public class Max<RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> extends ConflictResolutionFunction<Double, RecordType, SchemaElementType> {
+
+    //Max conflict resoluter created for attributes: "Tempo" and "Duration"
     public Max() {
     }
 

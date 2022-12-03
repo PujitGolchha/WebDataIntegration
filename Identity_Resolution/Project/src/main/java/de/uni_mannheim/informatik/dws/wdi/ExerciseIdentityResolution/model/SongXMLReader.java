@@ -53,19 +53,13 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 		dataset.addAttribute(Song.Duration);
 		dataset.addAttribute(Song.Release_Date);
 		dataset.addAttribute(Song.Tempo);
-//		dataset.addAttribute(Song.Popularity);
 		dataset.addAttribute(Song.Album_Type);
 		dataset.addAttribute(Song.Explicit);
 
 
 	}
 
-//	private static String getValue(String tag, Element element) {
-//		NodeList nodes = element.getElementsByTagName(tag).item(0).getChildNodes();
-//		Node node = (Node) nodes.item(0);
-//		return node.getNodeValue();
-//	}
-
+	//Parsing Complex XML element: "Album"
 	protected void getChildElements(Node node, String childName, Song song) {
 		NodeList children = node.getChildNodes();
 
@@ -93,6 +87,7 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 		}
 	}
 
+	//Preprocessing XML element: "Artists"
 	protected void modifyArtists(Node node, String childname, Song song){
 		String artists = getValueFromChildElement(node, childname);
 		if(artists!=null){
@@ -113,8 +108,6 @@ public class SongXMLReader extends XMLMatchableReader<Song, Attribute> implement
 
 		// fill the attributes
 		song.setTrack_name(getValueFromChildElement(node, "track_name"));
-
-	//	song.setAlbum_name(getValueFromChildElement(node, "name"));
 
 		getChildElements(node, "album",song);
 

@@ -31,6 +31,12 @@ import java.util.regex.Pattern;
  */
 public class SongTrackAnomalityComparatorLevenshteinSimilarity implements Comparator<Song, Attribute> {
 
+	/* Track Anomality comparator will compare music records with different editions.
+	Example:
+	Track1 - "Beautiful you(Remaster)" Track2 - "Beautiful you" (Considered as not same)
+	Track1 - "Beautiful you(Original)" Track2 - "Beautiful you" (Considered same)
+	!Other than remastered version the rest of the editions are considered as the same track
+	*/
 	private static final long serialVersionUID = 1L;
 	private LevenshteinSimilarity sim = new LevenshteinSimilarity();
 	private ComparatorLogger comparisonLog;
@@ -47,7 +53,9 @@ public class SongTrackAnomalityComparatorLevenshteinSimilarity implements Compar
 		s3 = s3.replaceAll("\\p{Punct}","");
 		String s4 = record2.getTrack_name().toLowerCase().replaceAll("[(\\[{].*[)\\]}]","");
 		s4 = s4.replaceAll("\\p{Punct}","");
+
 		double similarity1 = 0.0;
+
 		if(s3.equals(s4)){
 			if(s1.equals(s2)){similarity1 = sim.calculate(s1, s2);}
 			else {

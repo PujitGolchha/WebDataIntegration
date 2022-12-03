@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  * {@link Comparator} for {@link Song}s based on the {@link Song#getArtists()}
  * value and their {@link} value.
  * 
- * @author Oliver Lehmberg (oli@dwslab.de)
+ * @author Sharan, Aakriti
  * 
  */
 public class SongArtistsComparatorGenMaxContainment implements Comparator<Song, Attribute> {

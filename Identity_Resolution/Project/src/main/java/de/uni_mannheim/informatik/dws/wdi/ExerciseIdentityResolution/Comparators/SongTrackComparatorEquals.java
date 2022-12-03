@@ -40,8 +40,6 @@ public class SongTrackComparatorEquals implements Comparator<Song, Attribute> {
 		String s1 = record1.getTrack_name();
 		String s2 = record2.getTrack_name();
 
-		//System.out.println(s1);
-		//System.out.println(s2);
 		double similarity = 0.0;
 		if (s1.equals(s2)){
 			similarity = 1.0;

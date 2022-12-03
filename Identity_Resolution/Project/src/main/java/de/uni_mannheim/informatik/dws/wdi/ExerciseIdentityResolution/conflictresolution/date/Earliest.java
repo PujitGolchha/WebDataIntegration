@@ -15,6 +15,9 @@ import java.util.Collection;
 import java.util.Iterator;
 
 public class Earliest<ValueType, RecordType extends Matchable & Fusible<SchemaElementType>, SchemaElementType extends Matchable> extends ConflictResolutionFunction<ValueType, RecordType, SchemaElementType> {
+
+    //Date Conflict resoluter created for attribute "release date" - selects earliest date after ignoring
+    //dates with year "1900"
     public Earliest() {
     }
 

@@ -46,8 +46,6 @@ public class SongTrackComparatorLevenshteinSim implements Comparator<Song, Attri
 		String s4 = record2.getTrack_name().toLowerCase().replaceAll("[(\\[{].*[)\\]}]","");
 		s4 = s4.replaceAll("\\p{Punct}","");
 
-		//System.out.println(s1);
-		//System.out.println(s2);
 		double similarity = sim.calculate(s1, s2);
 		double similarity2 = sim.calculate(s3, s4);
 		

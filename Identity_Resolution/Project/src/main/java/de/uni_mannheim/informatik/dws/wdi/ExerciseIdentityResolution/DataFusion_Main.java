@@ -71,15 +71,14 @@ public class DataFusion_Main
 		        .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
 		        .toFormatter(Locale.ENGLISH);
 
-		dataDeezer.setDate(LocalDateTime.parse("2020-05-20", formatter));
+		dataDeezer.setDate(LocalDateTime.parse("2022-10-10", formatter));
 		dataMusico.setDate(LocalDateTime.parse("2020-05-20", formatter));
-		dataSpotify.setDate(LocalDateTime.parse("2022-01-10", formatter));
+		dataSpotify.setDate(LocalDateTime.parse("2022-10-10", formatter));
 
 		// load correspondences
 		logger.info("*\tLoading correspondences\t*");
 		CorrespondenceSet<Song, Attribute> correspondences = new CorrespondenceSet<>();
-		//not considering deezer-musico correspondences
-//		correspondences.loadCorrespondences(new File("data/output/songs_correspondences_dez_musico.csv"),dataDeezer, dataMusico);
+		correspondences.loadCorrespondences(new File("data/output/songs_correspondences_dez_musico.csv"),dataDeezer, dataMusico);
 		correspondences.loadCorrespondences(new File("data/output/songs_correspondences_dez_spotify.csv"),dataSpotify,dataDeezer);
 		correspondences.loadCorrespondences(new File("data/output/songs_correspondences_spot_musico.csv"),dataSpotify, dataMusico);
 
@@ -90,7 +89,7 @@ public class DataFusion_Main
 		// load the gold standard
 		logger.info("*\tEvaluating results\t*");
 		DataSet<Song, Attribute> gs = new FusibleHashedDataSet<>();
-		new SongXMLReader().loadFromXML(new File("data/goldstandard/gold2.xml"), "/Songs/song", gs);
+		new SongXMLReader().loadFromXML(new File("data/goldstandard/Gold_Standard_Data_Fusion.xml"), "/Songs/song", gs);
 
 		for(Song m : gs.get()) {
 			logger.info(String.format("gs: %s", m.getIdentifier()));
@@ -110,7 +109,6 @@ public class DataFusion_Main
 		strategy.addAttributeFuser(Song.Artists, new Artists_Fuser(), new Artists_Evaluation_Rule());
 		strategy.addAttributeFuser(Song.Album_Genres, new Genres_Fuser(), new Genres_Evaluation_Rule());
     	strategy.addAttributeFuser(Song.Album_Type, new Album_Type_Fuser(), new Album_Type_Evaluation_Rule());
-//		strategy.addAttributeFuser(Song.Explicit, new Explicit_Fuser(), new Explicit_Evaluation_Rule());
 		
 		// create the fusion engine
 		DataFusionEngine<Song, Attribute> engine = new DataFusionEngine<>(strategy);
