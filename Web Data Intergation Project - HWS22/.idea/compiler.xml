@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ExerciseIdentityResolution" />
+        <module name="Project" />
+        <module name="Web Data Intergation Project - HWS22" />
+        <module name="IR_exercise" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>
