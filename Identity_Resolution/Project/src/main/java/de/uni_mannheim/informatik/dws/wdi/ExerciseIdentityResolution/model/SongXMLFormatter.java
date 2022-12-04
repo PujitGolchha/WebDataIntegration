@@ -5,6 +5,8 @@ import org.w3c.dom.Element;
 import de.uni_mannheim.informatik.dws.winter.model.io.XMLFormatter;
 
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -66,7 +68,7 @@ public class SongXMLFormatter extends XMLFormatter<Song> {
         String res = "";
 
         for(int i = 0; i< arr.length; i++){
-            if(arr[i]!=""){
+            if(arr[i]!="" && (arr[i].length()>1)){
                 res += arr[i]+", ";}
         }
 
