@@ -131,7 +131,7 @@
     <Tempo>148</Tempo>
   </song>
   <song>
-    <id>deezer_987</id>
+    <id>spotify_42257</id>
     <track_name>Englishman in New York</track_name>
     <release_date>1987-10-05</release_date>
     <artists>['Sting']</artists>
@@ -170,7 +170,7 @@
     <Tempo>119</Tempo>
   </song>
   <song>
-    <id>deezer_13948</id>
+    <id>spotify_39045</id>
     <track_name>Hell on the Heart </track_name>
     <release_date>2009-10-12</release_date>
     <artists>['Eric Church']</artists>

@@ -65,49 +65,51 @@ public class IR_using_linear_combination
 
 		//Matching rule for Deezer-Musico
 		LinearCombinationMatchingRule<Song, Attribute> matchingRule1 = new LinearCombinationMatchingRule<>(
-				0.6);
+				0.8);
 		matchingRule1.activateDebugReport("data/output/debugResultsMatchingRule1.csv", 1000, gsTest1);
 
 		// add comparators
-		matchingRule1.addComparator(new SongDateComparator2Years(), 0.25);
-		matchingRule1.addComparator(new SongTrackAnomalityComparatorLevenshteinSimilarity(), 0.25);
-		matchingRule1.addComparator(new AlbumTitleComparatorContainment(), 0.25);
-    	matchingRule1.addComparator(new SongArtistsComparatorGenMaxContainment(), 0.25);
+		matchingRule1.addComparator(new SongDateComparator2Years(), 0.2);
+		matchingRule1.addComparator(new SongTrackAnomalityComparatorLevenshteinSimilarity(), 0.4);
+		matchingRule1.addComparator(new AlbumTitleComparatorContainment(), 0.2);
+    	matchingRule1.addComparator(new SongArtistsComparatorGenMaxContainment(), 0.2);
 
 		//Matching rule for Deezer-Spotify
 		LinearCombinationMatchingRule<Song, Attribute> matchingRule2 = new LinearCombinationMatchingRule<>(
-				0.7);
+				0.8);
 		matchingRule2.activateDebugReport("data/output/debugResultsMatchingRule2.csv", 1000, gsTest2);
 
 		// add comparators
-		matchingRule2.addComparator(new SongDateComparator2Years(), 0.25);
-		matchingRule2.addComparator(new AlbumTitleComparatorContainment(), 0.25);
-        matchingRule2.addComparator(new SongArtistsComparatorGenMaxContainment(), 0.25);
-		matchingRule2.addComparator(new SongTrackAnomalityComparatorLevenshteinSimilarity(), 0.25);
+		matchingRule2.addComparator(new SongDateComparator2Years(), 0.2);
+		matchingRule2.addComparator(new AlbumTitleComparatorContainment(), 0.2);
+        matchingRule2.addComparator(new SongArtistsComparatorGenMaxContainment(), 0.2);
+		matchingRule2.addComparator(new SongDurationComparator(), 0.2);
+		matchingRule2.addComparator(new SongTrackAnomalityComparatorLevenshteinSimilarity(), 0.2);
 
 		//Matching rule for Musico-Spotify
 		LinearCombinationMatchingRule<Song, Attribute> matchingRule3 = new LinearCombinationMatchingRule<>(
-				0.6);
+				0.8);
 		matchingRule3.activateDebugReport("data/output/debugResultsMatchingRule3.csv", 1000, gsTest3);
 
 		// add comparators
-		matchingRule3.addComparator(new SongTrackAnomalityComparatorLevenshteinSimilarity(), 0.25);
-		matchingRule3.addComparator(new SongDateComparator2Years(), 0.25);
-		matchingRule3.addComparator(new AlbumTitleComparatorContainment(), 0.25);
-		matchingRule3.addComparator(new SongArtistsComparatorGenMaxContainment(), 0.25);
+		matchingRule3.addComparator(new SongTrackAnomalityComparatorLevenshteinSimilarity(), 0.4);
+		matchingRule3.addComparator(new SongDateComparator2Years(), 0.2);
+		matchingRule3.addComparator(new AlbumTitleComparatorContainment(), 0.2);
+		matchingRule3.addComparator(new SongArtistsComparatorGenMaxContainment(), 0.2);
 
 
 		// create a blocker (blocking strategy)
+		//Deezer-Musico
 		StandardRecordBlocker<Song, Attribute> blocker1 = new StandardRecordBlocker<Song, Attribute>(new SongBlockingKeyByTitleGenerator());
 		blocker1.setMeasureBlockSizes(true);
 		blocker1.collectBlockSizeData("data/output/debugResultsBlocking1.csv", 100);
 
-
+		//Deezer-Spotify
 		StandardRecordBlocker<Song, Attribute> blocker2 = new StandardRecordBlocker<Song, Attribute>(new SongBlockingKeyByTitleGenerator());
 		blocker2.setMeasureBlockSizes(true);
 		blocker2.collectBlockSizeData("data/output/debugResultsBlocking2.csv", 100);
 
-
+        // Musico-Spotify
 		StandardRecordBlocker<Song, Attribute> blocker3 = new StandardRecordBlocker<Song, Attribute>(new SongBlockingKeyByTitleGenerator());
 		blocker3.setMeasureBlockSizes(true);
 		blocker3.collectBlockSizeData("data/output/debugResultsBlocking3.csv", 100);
